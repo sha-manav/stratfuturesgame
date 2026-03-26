@@ -676,7 +676,9 @@ export default function ChapterDecisionPage({ chapterIndex }: { chapterIndex: nu
   };
 
   const handleBack = () => {
-    if (innerPhase === 'decision' && decisionIndex > 0) {
+    if (innerPhase === 'consequence') {
+      setInnerPhase('decision');
+    } else if (innerPhase === 'decision' && decisionIndex > 0) {
       setDecisionIndex(decisionIndex - 1);
       setInnerPhase('decision');
     } else if (innerPhase === 'decision') {

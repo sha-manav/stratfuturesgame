@@ -37,8 +37,8 @@ const MAX_PAGE = 8;
 // Pages that display MetricHUD
 const HUD_PAGES = new Set([4, 5, 6, 7, 8]);
 
-// Pages that are scrollable / handle their own internal nav (no keyboard right-arrow advance)
-const INTERNAL_NAV_PAGES = new Set([4, 5, 6, 7, 8]);
+// All pages after the landing page handle their own internal navigation
+const INTERNAL_NAV_PAGES = new Set([1, 2, 3, 4, 5, 6, 7, 8]);
 
 function PageTransition({ children, pageKey }: { children: React.ReactNode; pageKey: number }) {
   const shouldReduce = useReducedMotion();
