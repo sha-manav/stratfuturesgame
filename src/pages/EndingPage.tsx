@@ -1,254 +1,323 @@
+import { useEffect } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { useGameStore } from '../store/gameStore';
-import { getEnding } from '../content/endings';
+import { useGameStore, TOTAL_DECISIONS } from '../store/gameStore';
+import { endings } from '../content/endings';
+import { CHAPTERS } from '../content/decisions';
 
-const endingColors: Record<string, string> = {
-  A: '#3B82F6',
-  B: '#94A3B8',
-  C: '#ef4444',
-  D: '#F59E0B',
+const ENDING_COLORS: Record<string, string> = {
+  A: '#10B981', // jade — cooperation
+  B: '#94A3B8', // silver — trundling
+  C: '#DC2626', // crimson — crucible
+  D: '#F59E0B', // amber — strategic judo
 };
 
-const endingSubColors: Record<string, string> = {
-  A: 'rgba(59,130,246,0.7)',
-  B: 'rgba(148,163,184,0.5)',
-  C: 'rgba(239,68,68,0.7)',
-  D: 'rgba(245,158,11,0.7)',
+const ENDING_ICONS: Record<string, string> = {
+  A: '🤝',
+  B: '📉',
+  C: '⚔️',
+  D: '🥋',
 };
 
 export default function EndingPage() {
+  const navigate = useGameStore((s) => s.navigate);
+  const computeEnding = useGameStore((s) => s.computeEnding);
   const currentEnding = useGameStore((s) => s.currentEnding);
   const resetGame = useGameStore((s) => s.resetGame);
-  const navigate = useGameStore((s) => s.navigate);
+  const decisions = useGameStore((s) => s.decisions);
+  const metrics = useGameStore((s) => s.metrics);
+  const trajectory = useGameStore((s) => s.trajectory);
   const shouldReduce = useReducedMotion();
 
+  useEffect(() => {
+    computeEnding();
+  }, [computeEnding]);
+
   const endingId = currentEnding ?? 'B';
-  const ending = getEnding(endingId);
+  const ending = endings.find((e) => e.id === endingId);
+  const color = ENDING_COLORS[endingId] ?? '#94A3B8';
+  const icon = ENDING_ICONS[endingId] ?? '📋';
 
-  if (!ending) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center bg-[#080c14]">
-        <p className="font-ui text-slate-400">Ending not found.</p>
-      </div>
-    );
-  }
+  if (!ending) return null;
 
-  const color = endingColors[endingId] ?? '#94A3B8';
-  const subColor = endingSubColors[endingId] ?? 'rgba(148,163,184,0.5)';
+  const decisionsCount = Object.keys(decisions).length;
+  const paragraphs = ending.body.split('\n\n').filter(Boolean);
 
   const handleReplay = () => {
     resetGame();
     navigate(0);
   };
 
+  // All 4 endings for the comparison strip
+  const allEndings = endings;
+
   return (
-    <div className="relative w-full min-h-screen bg-[#080c14]">
-      {/* Full-screen hero */}
-      <div className="relative h-screen overflow-hidden">
+    <div className="relative w-full min-h-screen overflow-hidden bg-[#080c14]">
+      {/* Hero image */}
+      <div className="relative w-full" style={{ height: 'min(65vh, 520px)' }}>
         <img
           src={ending.image}
           alt={ending.title}
           className="absolute inset-0 w-full h-full object-cover"
           loading="eager"
         />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(to bottom, rgba(8,12,20,0.3) 0%, rgba(8,12,20,0.15) 40%, rgba(8,12,20,0.85) 75%, rgba(8,12,20,1) 100%)`,
-          }}
-        />
-        <div className="absolute inset-0 scan-lines" />
+        <div className="absolute inset-0 overlay-dark" />
 
-        {/* Ending label */}
-        <motion.div
-          className="absolute top-8 left-1/2 -translate-x-1/2 text-center"
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: shouldReduce ? 0 : 0.7 }}
-        >
-          <div
-            className="font-mono text-[9px] tracking-[0.5em] uppercase px-4 py-1.5 rounded-sm"
-            style={{
-              color,
-              background: `${color}10`,
-              border: `1px solid ${color}30`,
-            }}
+        {/* Title overlay */}
+        <div className="absolute inset-0 flex flex-col items-center justify-end pb-10 px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: shouldReduce ? 0 : 0.7 }}
           >
-            EPILOGUE — SPRING 2031
-          </div>
-        </motion.div>
-
-        {/* Hero text */}
-        <motion.div
-          className="absolute bottom-16 left-0 right-0 text-center px-8"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: shouldReduce ? 0 : 0.9, delay: shouldReduce ? 0 : 0.3 }}
-        >
-          <h1
-            className="text-shadow-xl mb-3"
-            style={{
-              fontFamily: 'Georgia, serif',
-              fontSize: 'clamp(2rem, 6vw, 4.5rem)',
-              fontWeight: 700,
-              color: '#f1f5f9',
-              letterSpacing: '0.02em',
-              lineHeight: 1.1,
-            }}
-          >
-            {ending.title}
-          </h1>
-          <p
-            className="font-mono text-sm tracking-[0.3em]"
-            style={{ color: subColor }}
-          >
-            {ending.subtitle}
-          </p>
-        </motion.div>
-      </div>
-
-      {/* Ending body */}
-      <div className="relative z-10 max-w-2xl mx-auto px-6 md:px-8 py-12">
-        {/* Divider */}
-        <motion.div
-          className="w-16 h-[1px] mx-auto mb-8"
-          style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: shouldReduce ? 0 : 0.8, delay: shouldReduce ? 0 : 0.2 }}
-        />
-
-        {/* Body text */}
-        <motion.div
-          className="space-y-5 mb-10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: shouldReduce ? 0 : 0.8, delay: shouldReduce ? 0 : 0.4 }}
-        >
-          {ending.body.split('\n\n').map((paragraph, i) => (
-            <p
-              key={i}
-              className="leading-relaxed text-shadow"
+            <div className="text-4xl mb-4">{icon}</div>
+            <div className="font-mono text-[8px] tracking-[0.5em] uppercase mb-3" style={{ color: `${color}90` }}>
+              Spring 2031 · Ending {endingId}
+            </div>
+            <h1
+              className="text-shadow-xl mb-2"
               style={{
                 fontFamily: 'Georgia, serif',
-                fontSize: 'clamp(0.95rem, 1.9vw, 1.1rem)',
-                color: i === 0 ? '#e2e8f0' : '#94a3b8',
-                fontStyle: 'italic',
+                fontSize: 'clamp(1.8rem,4.5vw,3.2rem)',
+                fontWeight: 700,
+                letterSpacing: '0.02em',
+                color: '#f8fafc',
               }}
             >
-              {paragraph}
+              {ending.title}
+            </h1>
+            <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-shadow" style={{ color: 'rgba(203,213,225,0.7)' }}>
+              {ending.subtitle}
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Content section */}
+      <div className="max-w-3xl mx-auto px-6 py-10">
+        {/* Main narrative */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: shouldReduce ? 0 : 0.6, delay: shouldReduce ? 0 : 0.3 }}
+          className="mb-8"
+        >
+          {paragraphs.map((para, i) => (
+            <p
+              key={i}
+              className="font-serif leading-[1.95] mb-5 text-shadow"
+              style={{
+                fontSize: 'clamp(0.9rem,1.6vw,1.05rem)',
+                color: i === 0 ? '#e2e8f0' : '#94a3b8',
+              }}
+            >
+              {para}
             </p>
           ))}
         </motion.div>
 
         {/* Achieved through */}
         <motion.div
-          className="rounded-sm px-5 py-4 mb-10"
-          style={{
-            background: `${color}08`,
-            border: `1px solid ${color}20`,
-            borderLeft: `3px solid ${color}50`,
-          }}
-          initial={{ opacity: 0, x: -16 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: shouldReduce ? 0 : 0.7, delay: shouldReduce ? 0 : 0.7 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.45 }}
+          className="glass-panel rounded-sm p-5 mb-8"
+          style={{ borderLeft: `2px solid ${color}55` }}
         >
-          <div
-            className="font-mono text-[8px] tracking-[0.4em] uppercase mb-2"
-            style={{ color: subColor }}
-          >
-            ACHIEVED THROUGH
+          <div className="font-mono text-[8px] tracking-[0.35em] uppercase mb-2" style={{ color: `${color}80` }}>
+            {endingId === 'B' ? 'Result Of' : 'Achieved Through'}
           </div>
-          <p className="font-ui text-sm" style={{ color: '#94a3b8' }}>
+          <p className="font-ui text-sm leading-relaxed" style={{ color: '#94a3b8' }}>
             {ending.achievedThrough}
           </p>
         </motion.div>
 
-        {/* All endings indicator */}
+        {/* Strategic trajectory summary */}
         <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.5 }}
           className="mb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: shouldReduce ? 0 : 0.6, delay: shouldReduce ? 0 : 0.9 }}
         >
-          <div
-            className="font-mono text-[8px] tracking-[0.35em] uppercase mb-3 text-center"
-            style={{ color: 'rgba(148,163,184,0.4)' }}
-          >
-            POSSIBLE ENDINGS
+          <div className="font-mono text-[8px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
+            Your Strategic Trajectory
           </div>
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { id: 'A', label: 'New Bases\nof Cooperation', color: '#3B82F6' },
-              { id: 'B', label: 'Trundling\nAlong', color: '#94A3B8' },
-              { id: 'C', label: 'The\nCrucible', color: '#ef4444' },
-              { id: 'D', label: 'Strategic\nJudo', color: '#F59E0B' },
-            ].map((e) => (
-              <div
-                key={e.id}
-                className="text-center p-2 rounded-sm"
-                style={{
-                  background: e.id === endingId ? `${e.color}15` : 'rgba(8,12,20,0.5)',
-                  border: `1px solid ${e.id === endingId ? `${e.color}40` : 'rgba(148,163,184,0.08)'}`,
-                }}
-              >
+              { label: 'Alliance Path', value: trajectory.alliance_path, color: '#3B82F6' },
+              { label: 'Tech Path', value: trajectory.tech_path, color: '#F59E0B' },
+              { label: 'Escalation Path', value: trajectory.escalation_path, color: '#DC2626' },
+              { label: 'Restraint Path', value: trajectory.restraint_path, color: '#94A3B8' },
+            ].map((t) => (
+              <div key={t.label} className="glass-panel rounded-sm p-3 text-center">
+                <div className="font-mono text-[7px] tracking-wide uppercase mb-1" style={{ color: 'rgba(148,163,184,0.4)' }}>
+                  {t.label}
+                </div>
                 <div
-                  className="w-2 h-2 rounded-full mx-auto mb-1.5"
-                  style={{
-                    background: e.id === endingId ? e.color : 'rgba(148,163,184,0.3)',
-                    boxShadow: e.id === endingId ? `0 0 8px ${e.color}80` : 'none',
-                  }}
-                />
-                <p
-                  className="font-ui text-[9px] leading-snug whitespace-pre-line"
-                  style={{ color: e.id === endingId ? e.color : 'rgba(148,163,184,0.4)' }}
+                  className="font-mono text-xl font-bold"
+                  style={{ color: t.value >= 0 ? t.color : 'rgba(248,113,113,0.8)' }}
                 >
-                  {e.label}
-                </p>
+                  {t.value >= 0 ? '+' : ''}{t.value}
+                </div>
               </div>
             ))}
           </div>
         </motion.div>
 
-        {/* Replay CTA */}
+        {/* Final metrics */}
         <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: shouldReduce ? 0 : 0.6, delay: shouldReduce ? 0 : 1.1 }}
+          transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.55 }}
+          className="mb-8"
+        >
+          <div className="font-mono text-[8px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
+            Final State — {decisionsCount} of {TOTAL_DECISIONS} Decisions Made
+          </div>
+          <div className="space-y-3">
+            {[
+              { label: 'Alliance Trust', value: metrics.allianceTrust, color: '#3B82F6' },
+              { label: 'Tech Edge', value: metrics.techEdge, color: '#F59E0B' },
+              { label: 'Strategic Coherence', value: metrics.strategicCoherence, color: '#10B981' },
+              { label: 'Domestic Resilience', value: metrics.domesticResilience, color: '#8B5CF6' },
+            ].map((m) => (
+              <div key={m.label}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-mono text-[9px] tracking-wide" style={{ color: 'rgba(148,163,184,0.6)' }}>
+                    {m.label}
+                  </span>
+                  <span className="font-mono text-[10px] font-bold" style={{ color: m.color }}>
+                    {m.value}
+                  </span>
+                </div>
+                <div className="metric-track h-[3px] rounded-full">
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{ background: m.color }}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${m.value}%` }}
+                    transition={{ duration: shouldReduce ? 0 : 0.8, ease: 'easeOut', delay: 0.6 }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* All 4 endings comparison */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.65 }}
+          className="mb-10"
+        >
+          <div className="font-mono text-[8px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
+            Four Possible Endings
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {allEndings.map((e) => {
+              const eColor = ENDING_COLORS[e.id] ?? '#94A3B8';
+              const isThis = e.id === endingId;
+              return (
+                <div
+                  key={e.id}
+                  className="glass-panel rounded-sm p-3 text-center transition-all"
+                  style={{
+                    borderColor: isThis ? `${eColor}50` : 'rgba(148,163,184,0.08)',
+                    border: `1px solid ${isThis ? eColor + '50' : 'rgba(148,163,184,0.08)'}`,
+                    background: isThis ? `${eColor}08` : 'rgba(15,22,35,0.6)',
+                  }}
+                >
+                  <div className="text-lg mb-1">{ENDING_ICONS[e.id]}</div>
+                  <div className="font-mono text-[7px] tracking-wide uppercase" style={{ color: isThis ? eColor : 'rgba(148,163,184,0.35)' }}>
+                    {e.id === 'A' ? 'Cooperation' : e.id === 'B' ? 'Trundling' : e.id === 'C' ? 'Crucible' : 'Judo'}
+                  </div>
+                  {isThis && (
+                    <div className="font-mono text-[6px] tracking-widest uppercase mt-1" style={{ color: eColor }}>
+                      YOUR PATH
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* Decisions recap */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.7 }}
+          className="mb-10"
+        >
+          <div className="font-mono text-[8px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
+            Decision Log
+          </div>
+          <div className="space-y-2">
+            {CHAPTERS.map((chapter) =>
+              chapter.decisions.map((decision) => {
+                const choiceId = decisions[decision.id];
+                const choice = decision.choices.find((c) => c.id === choiceId);
+                return (
+                  <div
+                    key={decision.id}
+                    className="flex items-start gap-3 glass-panel rounded-sm px-4 py-3"
+                    style={{ opacity: choice ? 1 : 0.35 }}
+                  >
+                    <div className="font-mono text-[8px] tracking-wide flex-shrink-0 mt-0.5"
+                      style={{ color: 'rgba(148,163,184,0.4)', minWidth: '32px' }}>
+                      {decision.id}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-ui text-[11px] font-medium mb-0.5" style={{ color: '#94a3b8' }}>
+                        {decision.decisionTitle}
+                      </div>
+                      {choice ? (
+                        <div className="font-mono text-[9px]" style={{ color: 'rgba(148,163,184,0.5)' }}>
+                          Option {choiceId}: {choice.title}
+                        </div>
+                      ) : (
+                        <div className="font-mono text-[9px]" style={{ color: 'rgba(148,163,184,0.25)' }}>
+                          Not reached
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </motion.div>
+
+        {/* Action buttons */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.8 }}
+          className="flex flex-wrap gap-3 pb-16"
         >
           <button
             onClick={handleReplay}
-            className="font-ui font-semibold text-sm tracking-[0.2em] uppercase px-8 py-3 rounded-sm mr-3"
+            className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-sm transition-all"
             style={{
               background: 'rgba(59,130,246,0.12)',
               border: '1px solid rgba(59,130,246,0.4)',
               color: '#93c5fd',
             }}
           >
-            Play Again
+            Replay from Start →
           </button>
           <button
             onClick={() => navigate(4)}
-            className="font-ui text-sm tracking-wide px-6 py-3 rounded-sm"
+            className="font-ui text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-sm transition-all"
             style={{
-              color: 'rgba(148,163,184,0.5)',
+              background: 'rgba(148,163,184,0.06)',
               border: '1px solid rgba(148,163,184,0.15)',
+              color: 'rgba(148,163,184,0.6)',
             }}
           >
-            ← Revisit Decision
+            Revisit Decisions
           </button>
         </motion.div>
-
-        {/* Footer */}
-        <div className="mt-12 text-center">
-          <p
-            className="font-mono text-[8px] tracking-[0.4em] uppercase"
-            style={{ color: 'rgba(148,163,184,0.25)' }}
-          >
-            2029: CROSSROADS OF POWER — SCENARIO COMPLETE
-          </p>
-        </div>
       </div>
     </div>
   );

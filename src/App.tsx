@@ -6,35 +6,50 @@ import LandingPage from './pages/LandingPage';
 import OpeningPage from './pages/OpeningPage';
 import ProtagonistsPage from './pages/ProtagonistsPage';
 import CrisisBuildup from './pages/CrisisBuildup';
-import DecisionPage from './pages/DecisionPage';
-import ConsequencePage from './pages/ConsequencePage';
+import ChapterDecisionPage from './pages/ChapterDecisionPage';
 import EndingPage from './pages/EndingPage';
+
+// Page 4 = Chapter 1 (decisions 1.1-1.3)
+// Page 5 = Chapter 2 (decisions 2.1-2.3)
+// Page 6 = Chapter 3 Manila Incident (decisions 3.1-3.5)
+// Page 7 = Chapters 5/6 (decisions 5.1, 5.2, 6.1, 6.2)
+// Page 8 = Ending
+
+function Ch1() { return <ChapterDecisionPage chapterIndex={0} />; }
+function Ch2() { return <ChapterDecisionPage chapterIndex={1} />; }
+function Ch3() { return <ChapterDecisionPage chapterIndex={2} />; }
+function Ch56() { return <ChapterDecisionPage chapterIndex={3} />; }
 
 const PAGE_MAP: Record<number, React.ComponentType> = {
   0: LandingPage,
   1: OpeningPage,
   2: ProtagonistsPage,
   3: CrisisBuildup,
-  4: DecisionPage,
-  5: ConsequencePage,
-  6: EndingPage,
+  4: Ch1,
+  5: Ch2,
+  6: Ch3,
+  7: Ch56,
+  8: EndingPage,
 };
 
-// Pages that show the MetricHUD
-const HUD_PAGES = new Set([3, 4, 5]);
+const MAX_PAGE = 8;
+
+// Pages that display MetricHUD
+const HUD_PAGES = new Set([4, 5, 6, 7, 8]);
+
+// Pages that are scrollable / handle their own internal nav (no keyboard right-arrow advance)
+const INTERNAL_NAV_PAGES = new Set([4, 5, 6, 7, 8]);
 
 function PageTransition({ children, pageKey }: { children: React.ReactNode; pageKey: number }) {
   const shouldReduce = useReducedMotion();
-
   return (
     <motion.div
       key={pageKey}
-      className="w-full h-full"
-      initial={{ opacity: 0, y: shouldReduce ? 0 : 12 }}
+      style={{ position: 'absolute', inset: 0 }}
+      initial={{ opacity: 0, y: shouldReduce ? 0 : 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: shouldReduce ? 0 : -8 }}
-      transition={{ duration: shouldReduce ? 0 : 0.45, ease: 'easeInOut' }}
-      style={{ position: 'absolute', inset: 0 }}
+      transition={{ duration: shouldReduce ? 0 : 0.4, ease: 'easeInOut' }}
     >
       {children}
     </motion.div>
@@ -47,25 +62,20 @@ export default function App() {
   const loadFromStorage = useGameStore((s) => s.loadFromStorage);
   const shouldReduce = useReducedMotion();
 
-  // Load saved state on mount
-  useEffect(() => {
-    loadFromStorage();
-  }, [loadFromStorage]);
+  useEffect(() => { loadFromStorage(); }, [loadFromStorage]);
 
-  // Keyboard navigation
+  // Keyboard nav — only for linear narrative pages
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      // Don't navigate on decision page with keyboard to avoid accidental skips
-      if (currentPage === 4) return;
-
+      if (INTERNAL_NAV_PAGES.has(currentPage)) return;
       if (e.key === 'ArrowRight' || e.key === ' ') {
         e.preventDefault();
         const next = currentPage + 1;
-        if (next in PAGE_MAP) navigate(next);
+        if (next <= MAX_PAGE) navigate(next);
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
         const prev = currentPage - 1;
-        if (prev >= 0 && prev in PAGE_MAP) navigate(prev);
+        if (prev >= 0) navigate(prev);
       }
     },
     [currentPage, navigate]
@@ -78,17 +88,15 @@ export default function App() {
 
   const PageComponent = PAGE_MAP[currentPage];
   const showHUD = HUD_PAGES.has(currentPage);
+  const showBack = currentPage > 0 && !INTERNAL_NAV_PAGES.has(currentPage);
+  const showNext = currentPage < MAX_PAGE && !INTERNAL_NAV_PAGES.has(currentPage) && currentPage > 0;
 
   if (!PageComponent) {
     return (
       <div className="w-full h-screen flex items-center justify-center bg-[#080c14]">
         <div className="text-center">
           <p className="font-ui text-slate-400 mb-4">Page not found.</p>
-          <button
-            onClick={() => navigate(0)}
-            className="font-ui text-sm px-4 py-2"
-            style={{ color: '#93c5fd' }}
-          >
+          <button onClick={() => navigate(0)} className="font-ui text-sm px-4 py-2" style={{ color: '#93c5fd' }}>
             Return to Start
           </button>
         </div>
@@ -97,9 +105,9 @@ export default function App() {
   }
 
   return (
-    <div className="relative w-full min-h-screen bg-[#080c14] overflow-hidden">
-      {/* Page content with AnimatePresence transitions */}
-      <div className="relative w-full h-screen">
+    <div className="relative w-full min-h-screen bg-[#080c14]">
+      {/* Page layer */}
+      <div className="relative w-full h-screen overflow-hidden">
         <AnimatePresence mode="wait">
           <PageTransition key={currentPage} pageKey={currentPage}>
             <PageComponent />
@@ -107,7 +115,7 @@ export default function App() {
         </AnimatePresence>
       </div>
 
-      {/* Metric HUD overlay */}
+      {/* Metric HUD — LEFT side, never overlaps nav buttons */}
       <AnimatePresence>
         {showHUD && (
           <motion.div
@@ -116,38 +124,66 @@ export default function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: shouldReduce ? 0 : 0.4 }}
+            style={{ pointerEvents: 'none' }}
           >
             <MetricHUD />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Page progress dots indicator */}
-      {currentPage > 0 && (
-        <div className="fixed bottom-6 left-6 z-40 pointer-events-none">
+      {/* Persistent nav bar for LINEAR pages (1-3) — back + next, bottom-center */}
+      {(showBack || showNext) && (
+        <div
+          className="fixed bottom-5 left-1/2 z-50 flex items-center gap-3"
+          style={{ transform: 'translateX(-50%)' }}
+        >
+          {showBack && (
+            <button
+              onClick={() => navigate(currentPage - 1)}
+              className="font-ui text-xs tracking-widest uppercase px-4 py-2 rounded-sm"
+              style={{
+                color: 'rgba(148,163,184,0.55)',
+                background: 'rgba(8,12,20,0.85)',
+                border: '1px solid rgba(148,163,184,0.15)',
+                backdropFilter: 'blur(8px)',
+              }}
+            >
+              ← Back
+            </button>
+          )}
+          {/* Progress dots */}
           <div className="flex gap-1.5 items-center">
-            {Object.keys(PAGE_MAP).map((key) => {
-              const pg = parseInt(key);
-              if (pg === 0) return null;
-              return (
-                <div
-                  key={pg}
-                  className="transition-all duration-300"
-                  style={{
-                    width: pg === currentPage ? '14px' : '4px',
-                    height: '4px',
-                    borderRadius: '2px',
-                    background:
-                      pg === currentPage
-                        ? 'rgba(59,130,246,0.6)'
-                        : pg < currentPage
-                        ? 'rgba(59,130,246,0.25)'
-                        : 'rgba(148,163,184,0.15)',
-                  }}
-                />
-              );
-            })}
+            {Array.from({ length: MAX_PAGE }, (_, i) => i + 1).map((pg) => (
+              <div
+                key={pg}
+                className="transition-all duration-300 rounded-full"
+                style={{
+                  width: pg === currentPage ? '14px' : '4px',
+                  height: '4px',
+                  background:
+                    pg === currentPage
+                      ? 'rgba(59,130,246,0.7)'
+                      : pg < currentPage
+                      ? 'rgba(59,130,246,0.28)'
+                      : 'rgba(148,163,184,0.13)',
+                }}
+              />
+            ))}
           </div>
+          {showNext && (
+            <button
+              onClick={() => navigate(currentPage + 1)}
+              className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-4 py-2 rounded-sm"
+              style={{
+                color: '#93c5fd',
+                background: 'rgba(59,130,246,0.12)',
+                border: '1px solid rgba(59,130,246,0.35)',
+                backdropFilter: 'blur(8px)',
+              }}
+            >
+              Next →
+            </button>
+          )}
         </div>
       )}
     </div>

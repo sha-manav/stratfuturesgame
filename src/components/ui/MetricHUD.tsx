@@ -1,75 +1,11 @@
-import { useGameStore } from '../../store/gameStore';
 import { motion, useReducedMotion } from 'framer-motion';
+import { useGameStore } from '../../store/gameStore';
 
-interface MetricRowProps {
-  label: string;
-  value: number;
-  color: string;
-  trackColor: string;
-  delay: number;
-}
-
-function MetricRow({ label, value, color, trackColor, delay }: MetricRowProps) {
-  const shouldReduce = useReducedMotion();
-
-  return (
-    <div className="mb-2">
-      <div className="flex justify-between items-center mb-1">
-        <span
-          className="font-ui text-[9px] font-semibold tracking-widest uppercase"
-          style={{ color: 'rgba(148,163,184,0.75)' }}
-        >
-          {label}
-        </span>
-        <span
-          className="font-mono text-[9px] font-bold tabular-nums"
-          style={{ color }}
-        >
-          {value}
-        </span>
-      </div>
-      <div className="metric-track h-[3px] w-full" style={{ background: trackColor }}>
-        <motion.div
-          className="h-full rounded-sm"
-          style={{ background: color }}
-          initial={{ width: 0 }}
-          animate={{ width: `${value}%` }}
-          transition={
-            shouldReduce
-              ? { duration: 0 }
-              : { duration: 1.0, ease: 'easeOut', delay }
-          }
-        />
-      </div>
-    </div>
-  );
-}
-
-const METRICS_CONFIG = [
-  {
-    key: 'allianceTrust' as const,
-    label: 'Alliance Trust',
-    color: '#3B82F6',
-    trackColor: 'rgba(59,130,246,0.12)',
-  },
-  {
-    key: 'techEdge' as const,
-    label: 'Tech Edge',
-    color: '#F59E0B',
-    trackColor: 'rgba(245,158,11,0.12)',
-  },
-  {
-    key: 'strategicCoherence' as const,
-    label: 'Strat. Coherence',
-    color: '#10B981',
-    trackColor: 'rgba(16,185,129,0.12)',
-  },
-  {
-    key: 'domesticResilience' as const,
-    label: 'Dom. Resilience',
-    color: '#94A3B8',
-    trackColor: 'rgba(148,163,184,0.12)',
-  },
+const METRICS = [
+  { key: 'allianceTrust' as const, label: 'Alliance Trust', color: '#3B82F6', short: 'AT' },
+  { key: 'techEdge' as const, label: 'Tech Edge', color: '#F59E0B', short: 'TE' },
+  { key: 'strategicCoherence' as const, label: 'Strategic Coherence', color: '#10B981', short: 'SC' },
+  { key: 'domesticResilience' as const, label: 'Domestic Resilience', color: '#8B5CF6', short: 'DR' },
 ];
 
 export default function MetricHUD() {
@@ -77,36 +13,68 @@ export default function MetricHUD() {
   const shouldReduce = useReducedMotion();
 
   return (
-    <motion.div
-      className="fixed bottom-6 right-4 z-50 pointer-events-none"
-      initial={{ opacity: 0, x: 24 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={shouldReduce ? { duration: 0 } : { duration: 0.5, ease: 'easeOut' }}
+    // Fixed to LEFT side — never overlaps bottom-right navigation buttons
+    <div
+      className="fixed left-3 top-1/2 z-40 pointer-events-none"
+      style={{ transform: 'translateY(-50%)' }}
     >
-      <div
-        className="glass-dark rounded border px-3 py-2.5 min-w-[168px]"
-        style={{ borderColor: 'rgba(148,163,184,0.1)' }}
+      <motion.div
+        initial={{ opacity: 0, x: -12 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: -12 }}
+        transition={{ duration: shouldReduce ? 0 : 0.4 }}
+        className="glass-panel rounded-sm p-3"
+        style={{
+          minWidth: '140px',
+          border: '1px solid rgba(148,163,184,0.1)',
+          background: 'rgba(8,12,20,0.88)',
+        }}
       >
+        {/* Header */}
         <div
-          className="font-mono text-[8px] tracking-[0.25em] uppercase mb-2.5 pb-1.5"
-          style={{
-            color: 'rgba(148,163,184,0.5)',
-            borderBottom: '1px solid rgba(148,163,184,0.08)',
-          }}
+          className="font-mono text-[7px] tracking-[0.35em] uppercase mb-3 pb-2 text-center"
+          style={{ color: 'rgba(148,163,184,0.45)', borderBottom: '1px solid rgba(148,163,184,0.08)' }}
         >
-          Strategic Metrics
+          Strategic Index
         </div>
-        {METRICS_CONFIG.map((cfg, i) => (
-          <MetricRow
-            key={cfg.key}
-            label={cfg.label}
-            value={metrics[cfg.key]}
-            color={cfg.color}
-            trackColor={cfg.trackColor}
-            delay={i * 0.1}
-          />
-        ))}
-      </div>
-    </motion.div>
+
+        {/* Metrics */}
+        <div className="space-y-2.5">
+          {METRICS.map((m) => {
+            const value = metrics[m.key];
+            const pct = `${value}%`;
+            return (
+              <div key={m.key}>
+                <div className="flex items-center justify-between mb-1">
+                  <span className="font-mono text-[8px] tracking-wide" style={{ color: 'rgba(148,163,184,0.55)' }}>
+                    {m.label}
+                  </span>
+                  <span className="font-mono text-[9px] font-bold tabular-nums" style={{ color: m.color }}>
+                    {value}
+                  </span>
+                </div>
+                <div className="metric-track h-[2px] rounded-full">
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{ background: m.color, width: pct }}
+                    initial={{ width: 0 }}
+                    animate={{ width: pct }}
+                    transition={{ duration: shouldReduce ? 0 : 0.6, ease: 'easeOut' }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Trajectory hint */}
+        <div
+          className="font-mono text-[6px] tracking-[0.2em] uppercase mt-3 pt-2 text-center"
+          style={{ color: 'rgba(148,163,184,0.28)', borderTop: '1px solid rgba(148,163,184,0.06)' }}
+        >
+          Live · Updates with decisions
+        </div>
+      </motion.div>
+    </div>
   );
 }

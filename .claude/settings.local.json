@@ -9,7 +9,12 @@
       "Bash(gh auth:*)",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(gh repo:*)",
+      "Bash(git remote:*)",
+      "Bash(git push:*)",
+      "Bash(cat '/Users/manavshah/Desktop/StratFutures/StratFuturesGameDocs/decision_tree_v2_fixed_endings \\(1\\).html')",
+      "Bash(wc:*)"
     ]
   }
 }
