@@ -156,30 +156,12 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
 
   saveToStorage: () => {
-    try {
-      const { currentPage, currentChapterIndex, currentDecisionIndex, metrics, trajectory, decisions, currentEnding } = get();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        currentPage, currentChapterIndex, currentDecisionIndex,
-        metrics, trajectory, decisions, currentEnding,
-      }));
-    } catch { /* localStorage may be unavailable */ }
+    // No-op: game always starts fresh on reload
   },
 
   loadFromStorage: () => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      const data = JSON.parse(raw);
-      set({
-        currentPage: data.currentPage ?? 0,
-        currentChapterIndex: data.currentChapterIndex ?? 0,
-        currentDecisionIndex: data.currentDecisionIndex ?? 0,
-        metrics: data.metrics ?? { ...initialMetrics },
-        trajectory: data.trajectory ?? { ...initialTrajectory },
-        decisions: data.decisions ?? {},
-        currentEnding: data.currentEnding ?? null,
-      });
-    } catch { /* corrupted data */ }
+    // No-op: game always starts fresh on reload
+    try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
   },
 
   resetGame: () => {
