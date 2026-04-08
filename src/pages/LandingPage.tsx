@@ -96,7 +96,7 @@ export default function LandingPage() {
           transition={{ duration: dur(0.8), delay: dur(1.6) }}
         >
           Five decision-makers. Five cities. One crisis that will determine whether
-          the alliances built over eighty years hold — or splinter.
+          the alliances built over 80 years hold — or splinter.
         </motion.p>
 
         <motion.button
