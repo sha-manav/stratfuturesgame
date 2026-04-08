@@ -22,6 +22,7 @@ export interface DecisionChoice {
   id: 'A' | 'B' | 'C';
   title: string;
   description: string;
+  financialContext?: string;
   impactLabels: string[];
   risk: string;
   metrics: MetricDelta;
@@ -83,6 +84,7 @@ const chapter1: Chapter = {
           title: 'Aggressive Counter-Offer',
           description:
             "Recommend US provide immediate $5B infrastructure package to Philippines. Deploy naval assets for 'freedom of navigation' within 48 hours. Signal strong commitment, deter further Chinese action.",
+          financialContext: '$20–25B over 5 years including military presence. Preserves $50B+ Pacific trade relationship and prevents costlier conflict later.',
           impactLabels: ['Alliance Trust +20', 'Domestic Support −10'],
           risk: "Congressional backlash, 'forever wars' narrative",
           metrics: { allianceTrust: 20, domesticResilience: -10 },
@@ -97,6 +99,7 @@ const chapter1: Chapter = {
           title: 'Japan-Led Coalition',
           description:
             'Encourage Japan-Australia-led response with US coordination role. Multilateral burden-sharing, builds allied self-reliance. Slower but more sustainable approach to regional security.',
+          financialContext: '$4–5B US share (allies cover 60%). Sustainable burden-sharing model reduces long-term fiscal exposure.',
           impactLabels: ['Alliance Trust +10', 'Strategic Coherence +10', 'Tech Advantage −5'],
           risk: 'Slower response, China moves first',
           metrics: { allianceTrust: 10, strategicCoherence: 10, techEdge: -5 },
@@ -111,6 +114,7 @@ const chapter1: Chapter = {
           title: 'Strategic Restraint',
           description:
             'Diplomatic protest and economic pressure, but preserve resources for AI/tech competition. Signal priorities lie in long-term strategic advantage, not every regional dispute. Let Philippines handle locally.',
+          financialContext: '$0 direct cost now. But risks losing $100B+ in Pacific commerce over the decade as allies hedge toward Beijing.',
           impactLabels: ['Alliance Trust −25', 'Tech Advantage +15', 'Domestic Support +10'],
           risk: 'Philippines drifts toward China, allies hedge',
           metrics: { allianceTrust: -25, techEdge: 15, domesticResilience: 10 },
@@ -139,6 +143,7 @@ const chapter1: Chapter = {
           title: 'License Broadly',
           description:
             'Share Sentinel-7 with all Five Eyes allies. Build a shared AI ecosystem. Strengthen interoperability and collective capability at the cost of some competitive edge.',
+          financialContext: '$800M–1.2B in allied licensing contracts. Stock dips 6% short-term but new government contracts materialize.',
           impactLabels: ['Alliance Trust +15', 'Tech Edge −10'],
           risk: 'IP diffusion, reduced proprietary advantage',
           metrics: { allianceTrust: 15, techEdge: -10 },
@@ -153,6 +158,7 @@ const chapter1: Chapter = {
           title: 'US-Only',
           description:
             'Maintain exclusive US access. Protect IP and competitive edge. Allies must develop their own systems or use degraded versions.',
+          financialContext: '$3B in Pentagon contracts. But allies spend $2–3B building competing platforms — fragmenting the market Sentinel AI could have dominated.',
           impactLabels: ['Alliance Trust −20', 'Tech Edge +20'],
           risk: 'Allies develop competing platforms, fragmentation accelerates',
           metrics: { allianceTrust: -20, techEdge: 20 },
@@ -167,6 +173,7 @@ const chapter1: Chapter = {
           title: 'Allied AI Consortium',
           description:
             'Propose a joint development framework — shared governance, shared IP, shared breakthroughs. Slower, more complex, but builds something durable.',
+          financialContext: '$8B combined allied resources vs $3B going alone. Technology sharing multiplies R&D capacity across time zones.',
           impactLabels: ['Alliance Trust +20', 'Tech Edge −5', 'Strategic Coherence +15'],
           risk: 'Coordination overhead, governance disputes',
           metrics: { allianceTrust: 20, techEdge: -5, strategicCoherence: 15 },
@@ -195,6 +202,7 @@ const chapter1: Chapter = {
           title: 'Accept Chinese Contract',
           description:
             "$2 billion guaranteed. Chinese market access for next decade. Company's financial future secured. But AUKUS door closes permanently.",
+          financialContext: '$3.4B guaranteed over contract term. But forecloses $2B+ in Western defense market access and requires IP transfer worth $800M+.',
           impactLabels: ['Alliance Trust −20', 'Tech Edge −10'],
           risk: 'AUKUS foreclosed, technology transfer to adversary, reputational damage with allies',
           metrics: { allianceTrust: -20, techEdge: -10 },
@@ -209,6 +217,7 @@ const chapter1: Chapter = {
           title: 'Commit to AUKUS',
           description:
             "Decline the Chinese contract. Join the AUKUS industrial base. Access to classified allied technology, long-term defense contracts, and a role in shaping the region's security architecture.",
+          financialContext: 'Forgo $3.4B Chinese deal. Gain $3–5B in allied defense contracts over 5 years plus $800M in shared tech. Defense margins 30–40% higher than commercial.',
           impactLabels: ['Alliance Trust +25', 'Tech Edge +15', 'Strategic Coherence +20'],
           risk: 'Chinese market lost, short-term financial pressure, political controversy in Japan',
           metrics: { allianceTrust: 25, techEdge: 15, strategicCoherence: 20 },
@@ -223,6 +232,7 @@ const chapter1: Chapter = {
           title: 'Delay Decision',
           description:
             'Request 90 days to conduct due diligence. Maintain optionality while both sides wait.',
+          financialContext: 'Both offers deteriorate $800M–1.2B in value during delay. Fence-sitting destroys leverage with both sides.',
           impactLabels: ['Alliance Trust −10', 'Strategic Coherence −20'],
           risk: 'Both parties lose patience, Kōdo loses credibility with both sides',
           metrics: { allianceTrust: -10, strategicCoherence: -20 },
@@ -322,6 +332,7 @@ const chapter2: Chapter = {
           title: 'Full Exclusion',
           description:
             'Advocate for complete exclusion of Chinese equipment from all critical infrastructure. National security overrides economic considerations. Set a clear precedent.',
+          financialContext: 'Replacement cost: ~$1.2B for Swedish 5G infrastructure. Chinese exports drop 18% ($720M). But avoided security breach costs could be $5B+.',
           impactLabels: ['Alliance Trust +20', 'Security Improved'],
           risk: 'Chinese economic retaliation, trade disruption',
           metrics: { allianceTrust: 20 },
@@ -336,6 +347,7 @@ const chapter2: Chapter = {
           title: 'Hybrid Approach',
           description:
             'Allow Chinese equipment in civilian networks; mandate Western equipment in military and sensitive government networks. Preserve trade relationships while protecting the most critical systems.',
+          financialContext: 'Saves ~$200M vs full replacement. Preserves $4B bilateral trade. But network seam vulnerabilities create unquantifiable security risk.',
           impactLabels: ['Alliance Trust −5', 'Economic Balance Maintained'],
           risk: 'Security seams between civilian/military networks, vulnerable to exploitation',
           metrics: { allianceTrust: -5 },
@@ -350,6 +362,7 @@ const chapter2: Chapter = {
           title: 'Nordic Coalition',
           description:
             'Coordinate with Norway, Finland, and Denmark to implement collective exclusion. Shared burden, shared risk, and a multilateral precedent that is harder for Beijing to punish.',
+          financialContext: 'Per-country cost reduced to ~$800M through joint procurement. Combined Nordic GDP of $2.1T makes Chinese retaliation against four nations simultaneously unaffordable for Beijing.',
           impactLabels: ['Alliance Trust +20', 'Strategic Coherence +20'],
           risk: 'Coordination delays, not all Nordic partners may agree',
           metrics: { allianceTrust: 20, strategicCoherence: 20 },
@@ -406,6 +419,7 @@ const chapter2: Chapter = {
           title: 'Economic Alternative',
           description:
             'Offer allies a competing trade framework that reduces their economic dependence on China. Make holding firm against Beijing economically viable, not just morally correct.',
+          financialContext: 'Allied Economic Security Act: $12–15B over 5 years in trade incentives. Offsets ~$40B in European-China trade dependence that drives self-censorship.',
           impactLabels: ['Alliance Trust +15', 'Strategic Coherence +20'],
           risk: 'Expensive, requires Congressional support, long-term commitment',
           metrics: { allianceTrust: 15, strategicCoherence: 20 },
@@ -505,6 +519,7 @@ const chapter3: Chapter = {
           title: 'Defense Priority',
           description:
             'Break the commercial contracts. Accept the lawsuits. Deliver the drones to Japan Coast Guard in 72 hours. National security comes first.',
+          financialContext: 'Contract penalty clauses: $180–240M in litigation exposure. But Defense Ministry contracts worth $1.5B+ over 3 years follow from demonstrated reliability.',
           impactLabels: ['Alliance Trust +20', 'Strategic Coherence +25'],
           risk: 'Commercial lawsuits, damaged business reputation, potential precedent',
           metrics: { allianceTrust: 20, strategicCoherence: 25 },
@@ -519,6 +534,7 @@ const chapter3: Chapter = {
           title: 'Honor Contracts',
           description:
             'Maintain commercial commitments. Offer Defense Ministry a revised timeline of 3 weeks. Business integrity matters — breaking contracts damages trust with all clients, including future defense clients.',
+          financialContext: 'Protects $340M in existing commercial revenue. But lost defense contract ($1.2B surveillance program) awarded to competitor within months.',
           impactLabels: ['Alliance Trust −25', 'Business Integrity Preserved'],
           risk: "Defense Ministry disappointed, Japan's Coast Guard under-equipped during crisis",
           metrics: { allianceTrust: -25 },
@@ -800,6 +816,7 @@ const chapter56: Chapter = {
           title: 'Accept Board Seat',
           description:
             'Standard corporate practice. Include confidentiality restrictions and recusal provisions. Stabilize the stock. Manage the relationship.',
+          financialContext: 'Stock stabilizes at current valuation (~$14B). But Pentagon contract review puts $1.6B in government revenue at risk. Allied contracts freeze pending governance review.',
           impactLabels: ['Tech Edge −25'],
           risk: 'Pentagon reviews all Sentinel AI contracts, allies lose trust, independence compromised',
           metrics: { techEdge: -25 },
@@ -814,6 +831,7 @@ const chapter56: Chapter = {
           title: 'Refuse',
           description:
             "Decline the board seat. Accept the financial hit. Maintain independence. If the stock crashes, it crashes — but Sentinel AI remains what it is.",
+          financialContext: 'Stock drops 18% (−$2.5B market cap). Chinese fund dumps position. But allied contracts accelerate: +$1.4B in long-term allied premium revenue.',
           impactLabels: ['Tech Edge +10', 'Strategic Coherence +20'],
           risk: "Stock drops 15-20%, funded competitor enters market, short-term pain",
           metrics: { techEdge: 10, strategicCoherence: 20 },
@@ -828,6 +846,7 @@ const chapter56: Chapter = {
           title: 'Buyback Consortium',
           description:
             'Organize allied institutional investors — pension funds, sovereign wealth funds from democratic allies — to buy out the Chinese stake entirely before the demand escalates.',
+          financialContext: 'Buyout costs ~$200M in transaction fees and dilution. But allied shareholder base unlocks $2B+ in allied government revenue. Net gain: ~$1.8B.',
           impactLabels: ['Tech Edge +15', 'Alliance Trust +20'],
           risk: 'Complex to execute, requires 30+ days to organize, Chinese fund may dump before buyout completes',
           metrics: { techEdge: 15, allianceTrust: 20 },
@@ -912,6 +931,7 @@ const chapter56: Chapter = {
           title: 'Allied AI Initiative',
           description:
             "Announce a $20B crash program — pooled allied resources, joint development, shared breakthroughs. Respond to the claim at scale, regardless of whether it's real. Make the real thing happen.",
+          financialContext: '$20B pooled across 6 allied governments over 3 years. US share: ~$8B. Distributed cost structure means no single nation bears the full burden.',
           impactLabels: ['Tech Edge +25', 'Alliance Trust +30'],
           risk: "Expensive, politically difficult, may be responding to bluff — but if it's real, this is the answer",
           metrics: { techEdge: 25, allianceTrust: 30 },
@@ -926,6 +946,7 @@ const chapter56: Chapter = {
           title: 'Skeptical Response',
           description:
             "Demand verification. Don't respond to Chinese propaganda with expensive programs. Strategic patience — assess the claim before committing resources.",
+          financialContext: 'Saves $20B in immediate commitments. But 3-month assessment window costs 6–12 months of competitive positioning if Tianhe-3 proves real.',
           impactLabels: ['Tech Edge −10', 'Restraint +6'],
           risk: "If it's real, you've lost 6-12 months. If it's not, you've saved resources — but appeared hesitant",
           metrics: { techEdge: -10 },

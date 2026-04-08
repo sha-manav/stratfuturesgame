@@ -511,6 +511,19 @@ function DecisionPanel({
                       <p className="font-ui text-[11px] leading-relaxed mb-2.5" style={{ color: '#64748b' }}>
                         {choice.description}
                       </p>
+                      {choice.financialContext && (
+                        <div
+                          className="flex items-start gap-1.5 mb-2.5 px-2 py-1.5 rounded-sm"
+                          style={{ background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)' }}
+                        >
+                          <span className="font-mono text-[8px] tracking-wide uppercase mt-0.5 flex-shrink-0" style={{ color: 'rgba(245,158,11,0.7)' }}>
+                            $
+                          </span>
+                          <span className="font-ui text-[10px] leading-snug" style={{ color: 'rgba(245,158,11,0.65)' }}>
+                            {choice.financialContext}
+                          </span>
+                        </div>
+                      )}
                       <div className="flex flex-wrap mb-2">
                         {choice.impactLabels.map((label) => (
                           <MetricBadge key={label} label={label} />
