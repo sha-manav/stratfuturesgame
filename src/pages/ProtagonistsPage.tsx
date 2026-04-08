@@ -228,7 +228,7 @@ function ProtagonistPanel({
   );
 }
 
-function ConnectionScreen({ onContinue }: { onContinue: () => void }) {
+function ConnectionScreen({ onContinue, onBack }: { onContinue: () => void; onBack: () => void }) {
   const shouldReduce = useReducedMotion();
 
   return (
@@ -287,7 +287,14 @@ function ConnectionScreen({ onContinue }: { onContinue: () => void }) {
             MANILA INCIDENT: T-MINUS 90 DAYS
           </div>
 
-          <div className="flex justify-center">
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={onBack}
+              className="font-ui text-xs tracking-widest px-4 py-2 rounded-sm"
+              style={{ color: 'rgba(148,163,184,0.45)', border: '1px solid rgba(148,163,184,0.15)' }}
+            >
+              ← Back
+            </button>
             <button
               onClick={onContinue}
               className="font-ui font-semibold text-xs tracking-[0.25em] uppercase px-8 py-3 rounded-sm"
@@ -327,7 +334,7 @@ export default function ProtagonistsPage() {
   if (step === protagonists.length) {
     return (
       <div className="w-full h-screen">
-        <ConnectionScreen onContinue={() => navigate(3)} />
+        <ConnectionScreen onContinue={() => navigate(3)} onBack={() => setStep(protagonists.length - 1)} />
       </div>
     );
   }

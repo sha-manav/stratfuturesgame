@@ -8,7 +8,7 @@ type CrisisStep = 'intel' | 'sarah-office' | 'global-montage' | 'clock' | 'decis
 const STEPS: CrisisStep[] = ['intel', 'sarah-office', 'global-montage', 'clock', 'decision-approach'];
 
 // ─── INTEL ASSESSMENT PAGE ───
-function IntelAssessment({ onNext }: { onNext: () => void }) {
+function IntelAssessment({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) {
   const shouldReduce = useReducedMotion();
   return (
     <div className="relative w-full h-full overflow-hidden">
@@ -91,7 +91,14 @@ function IntelAssessment({ onNext }: { onNext: () => void }) {
             />
           </div>
 
-          <div className="mt-4 flex justify-end">
+          <div className="mt-4 flex justify-between">
+            <button
+              onClick={onPrev}
+              className="font-ui text-xs tracking-widest px-4 py-2 rounded-sm"
+              style={{ color: 'rgba(148,163,184,0.5)', border: '1px solid rgba(148,163,184,0.15)' }}
+            >
+              ← Back
+            </button>
             <button
               onClick={onNext}
               className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-6 py-2.5 rounded-sm"
@@ -798,7 +805,7 @@ export default function CrisisBuildup() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
         >
-          {currentStep === 'intel' && <IntelAssessment onNext={goNext} />}
+          {currentStep === 'intel' && <IntelAssessment onNext={goNext} onPrev={goPrev} />}
           {currentStep === 'sarah-office' && <SarahOffice onNext={goNext} onPrev={goPrev} />}
           {currentStep === 'global-montage' && <GlobalMontage onNext={goNext} onPrev={goPrev} />}
           {currentStep === 'clock' && <ClockTicking onNext={goNext} onPrev={goPrev} />}

@@ -88,8 +88,6 @@ export default function App() {
 
   const PageComponent = PAGE_MAP[currentPage];
   const showHUD = HUD_PAGES.has(currentPage);
-  const showBack = currentPage > 0 && !INTERNAL_NAV_PAGES.has(currentPage);
-  const showNext = currentPage < MAX_PAGE && !INTERNAL_NAV_PAGES.has(currentPage) && currentPage > 0;
 
   if (!PageComponent) {
     return (
@@ -115,7 +113,7 @@ export default function App() {
         </AnimatePresence>
       </div>
 
-      {/* Metric HUD — LEFT side, never overlaps nav buttons */}
+      {/* Metric HUD — top-right, collapsed by default */}
       <AnimatePresence>
         {showHUD && (
           <motion.div
@@ -130,61 +128,6 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Persistent nav bar for LINEAR pages (1-3) — back + next, bottom-center */}
-      {(showBack || showNext) && (
-        <div
-          className="fixed bottom-5 left-1/2 z-50 flex items-center gap-3"
-          style={{ transform: 'translateX(-50%)' }}
-        >
-          {showBack && (
-            <button
-              onClick={() => navigate(currentPage - 1)}
-              className="font-ui text-xs tracking-widest uppercase px-4 py-2 rounded-sm"
-              style={{
-                color: 'rgba(148,163,184,0.55)',
-                background: 'rgba(8,12,20,0.85)',
-                border: '1px solid rgba(148,163,184,0.15)',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              ← Back
-            </button>
-          )}
-          {/* Progress dots */}
-          <div className="flex gap-1.5 items-center">
-            {Array.from({ length: MAX_PAGE }, (_, i) => i + 1).map((pg) => (
-              <div
-                key={pg}
-                className="transition-all duration-300 rounded-full"
-                style={{
-                  width: pg === currentPage ? '14px' : '4px',
-                  height: '4px',
-                  background:
-                    pg === currentPage
-                      ? 'rgba(59,130,246,0.7)'
-                      : pg < currentPage
-                      ? 'rgba(59,130,246,0.28)'
-                      : 'rgba(148,163,184,0.13)',
-                }}
-              />
-            ))}
-          </div>
-          {showNext && (
-            <button
-              onClick={() => navigate(currentPage + 1)}
-              className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-4 py-2 rounded-sm"
-              style={{
-                color: '#93c5fd',
-                background: 'rgba(59,130,246,0.12)',
-                border: '1px solid rgba(59,130,246,0.35)',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              Next →
-            </button>
-          )}
-        </div>
-      )}
     </div>
   );
 }

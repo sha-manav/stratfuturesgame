@@ -43,14 +43,14 @@ function MetricBadge({ label }: { label: string }) {
 // ────────────────────────────────────────────────
 // Full narrative consequence panel (Decision 1.1 only)
 // ────────────────────────────────────────────────
-function FullConsequencePanel({ choiceId, onNext }: { choiceId: string; onNext: () => void }) {
+function FullConsequencePanel({ choiceId, onNext, onBack }: { choiceId: string; onNext: () => void; onBack: () => void }) {
   const data = DECISION_1_1_FULL_CONSEQUENCES[choiceId as 'A' | 'B' | 'C'];
   if (!data) return null;
   const shouldReduce = useReducedMotion();
 
   return (
     <div className="absolute inset-0 overflow-y-auto">
-      <div className="min-h-full flex flex-col p-4 pt-14 md:p-8 md:pt-14 pb-24">
+      <div className="min-h-full flex flex-col p-4 pt-6 md:p-8 md:pt-8 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -136,25 +136,33 @@ function FullConsequencePanel({ choiceId, onNext }: { choiceId: string; onNext: 
           ))}
         </motion.div>
 
-        {/* Next button */}
-        <motion.div
-          className="flex-shrink-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: shouldReduce ? 0 : 0.4, delay: shouldReduce ? 0 : 0.5 }}
-        >
+      </div>
+
+      {/* Fixed bottom bar */}
+      <div
+        className="fixed bottom-0 left-0 right-0 z-40 px-3 py-3 md:px-6 md:py-4"
+        style={{
+          background: 'rgba(8,12,20,0.95)',
+          borderTop: '1px solid rgba(148,163,184,0.1)',
+          backdropFilter: 'blur(12px)',
+        }}
+      >
+        <div className="flex items-center justify-between">
+          <button
+            onClick={onBack}
+            className="font-ui text-xs tracking-widest px-3 py-2 rounded-sm"
+            style={{ color: 'rgba(148,163,184,0.5)', border: '1px solid rgba(148,163,184,0.15)' }}
+          >
+            ← Back
+          </button>
           <button
             onClick={onNext}
-            className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-sm transition-all"
-            style={{
-              background: 'rgba(59,130,246,0.12)',
-              border: '1px solid rgba(59,130,246,0.4)',
-              color: '#93c5fd',
-            }}
+            className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
+            style={{ background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.4)', color: '#93c5fd' }}
           >
             Continue →
           </button>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
@@ -167,10 +175,12 @@ function BriefConsequencePanel({
   decision,
   choiceId,
   onNext,
+  onBack,
 }: {
   decision: DecisionNode;
   choiceId: string;
   onNext: () => void;
+  onBack: () => void;
 }) {
   const choice = decision.choices.find((c) => c.id === choiceId);
   const shouldReduce = useReducedMotion();
@@ -179,7 +189,7 @@ function BriefConsequencePanel({
 
   return (
     <div className="absolute inset-0 overflow-y-auto">
-      <div className="min-h-full flex flex-col p-4 pt-14 md:p-8 md:pt-14 pb-24 max-w-2xl mx-auto">
+      <div className="min-h-full flex flex-col p-4 pt-6 md:p-8 md:pt-8 pb-24 max-w-2xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -238,25 +248,33 @@ function BriefConsequencePanel({
           </div>
         </motion.div>
 
-        {/* Next button */}
-        <motion.div
-          className="flex-shrink-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: shouldReduce ? 0 : 0.4, delay: shouldReduce ? 0 : 0.35 }}
-        >
+      </div>
+
+      {/* Fixed bottom bar */}
+      <div
+        className="fixed bottom-0 left-0 right-0 z-40 px-3 py-3 md:px-6 md:py-4"
+        style={{
+          background: 'rgba(8,12,20,0.95)',
+          borderTop: '1px solid rgba(148,163,184,0.1)',
+          backdropFilter: 'blur(12px)',
+        }}
+      >
+        <div className="flex items-center justify-between">
+          <button
+            onClick={onBack}
+            className="font-ui text-xs tracking-widest px-3 py-2 rounded-sm"
+            style={{ color: 'rgba(148,163,184,0.5)', border: '1px solid rgba(148,163,184,0.15)' }}
+          >
+            ← Back
+          </button>
           <button
             onClick={onNext}
-            className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-sm transition-all"
-            style={{
-              background: 'rgba(59,130,246,0.12)',
-              border: '1px solid rgba(59,130,246,0.4)',
-              color: '#93c5fd',
-            }}
+            className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
+            style={{ background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.4)', color: '#93c5fd' }}
           >
             Continue →
           </button>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
@@ -265,7 +283,7 @@ function BriefConsequencePanel({
 // ────────────────────────────────────────────────
 // Chapter complete screen
 // ────────────────────────────────────────────────
-function ChapterCompletePanel({ chapter, onNext, isLast }: { chapter: typeof CHAPTERS[0]; onNext: () => void; isLast: boolean }) {
+function ChapterCompletePanel({ chapter, onNext, onBack, isLast }: { chapter: typeof CHAPTERS[0]; onNext: () => void; onBack: () => void; isLast: boolean }) {
   const shouldReduce = useReducedMotion();
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
@@ -286,17 +304,26 @@ function ChapterCompletePanel({ chapter, onNext, isLast }: { chapter: typeof CHA
             ? 'All decisions made. The trajectory of the next decade has been set. The ending is determined by the choices you made.'
             : `The decisions of ${chapter.subtitle} are complete. The next chapter awaits.`}
         </p>
-        <button
-          onClick={onNext}
-          className="font-ui font-semibold text-xs tracking-[0.25em] uppercase px-8 py-3.5 rounded-sm transition-all"
-          style={{
-            background: isLast ? 'rgba(139,92,246,0.15)' : 'rgba(59,130,246,0.12)',
-            border: `1px solid ${isLast ? 'rgba(139,92,246,0.5)' : 'rgba(59,130,246,0.4)'}`,
-            color: isLast ? '#a78bfa' : '#93c5fd',
-          }}
-        >
-          {isLast ? 'See Outcome →' : 'Next Chapter →'}
-        </button>
+        <div className="flex items-center justify-center gap-4">
+          <button
+            onClick={onBack}
+            className="font-ui text-xs tracking-widest px-4 py-2 rounded-sm"
+            style={{ color: 'rgba(148,163,184,0.45)', border: '1px solid rgba(148,163,184,0.15)' }}
+          >
+            ← Back
+          </button>
+          <button
+            onClick={onNext}
+            className="font-ui font-semibold text-xs tracking-[0.25em] uppercase px-8 py-3.5 rounded-sm transition-all"
+            style={{
+              background: isLast ? 'rgba(139,92,246,0.15)' : 'rgba(59,130,246,0.12)',
+              border: `1px solid ${isLast ? 'rgba(139,92,246,0.5)' : 'rgba(59,130,246,0.4)'}`,
+              color: isLast ? '#a78bfa' : '#93c5fd',
+            }}
+          >
+            {isLast ? 'See Outcome →' : 'Next Chapter →'}
+          </button>
+        </div>
       </motion.div>
     </div>
   );
@@ -341,27 +368,25 @@ function DecisionPanel({
 
   return (
     <div className="absolute inset-0 overflow-y-auto">
-      <div className="min-h-full flex flex-col p-4 pt-14 md:p-8 md:pt-14" style={{ paddingBottom: '7rem' }}>
+      <div className="min-h-full flex flex-col p-4 pt-6 md:p-8 md:pt-8" style={{ paddingBottom: '5rem' }}>
 
-        {/* Top bar */}
+        {/* Top bar — left-aligned to avoid MetricHUD overlap in top-right */}
         <motion.div
-          className="flex items-center justify-between mb-4 flex-shrink-0"
+          className="flex items-center gap-3 mb-4 flex-shrink-0 flex-wrap"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: shouldReduce ? 0 : 0.4 }}
         >
           <ClassifiedBadge size="sm" />
-          <div className="flex items-center gap-3">
-            {decision.critical && (
-              <span className="font-mono text-[8px] tracking-[0.3em] uppercase px-2 py-1 rounded-sm"
-                style={{ color: 'rgba(239,68,68,0.9)', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)' }}>
-                CRITICAL
-              </span>
-            )}
-            <span className="font-mono text-[8px] tracking-[0.3em] uppercase" style={{ color: 'rgba(148,163,184,0.45)' }}>
-              {decisionIndex + 1} / {totalInChapter}
+          {decision.critical && (
+            <span className="font-mono text-[8px] tracking-[0.3em] uppercase px-2 py-1 rounded-sm"
+              style={{ color: 'rgba(239,68,68,0.9)', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)' }}>
+              CRITICAL
             </span>
-          </div>
+          )}
+          <span className="font-mono text-[8px] tracking-[0.3em] uppercase" style={{ color: 'rgba(148,163,184,0.45)' }}>
+            {decisionIndex + 1} / {totalInChapter}
+          </span>
         </motion.div>
 
         {/* Character decision-maker banner + decision header */}
@@ -518,84 +543,69 @@ function DecisionPanel({
             backdropFilter: 'blur(12px)',
           }}
         >
-          <AnimatePresence mode="wait">
-            {selected && !alreadyDecided ? (
-              <motion.div
-                key="confirm-bar"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 6 }}
-                transition={{ duration: shouldReduce ? 0 : 0.3 }}
-                className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
-              >
-                <p className="font-ui text-xs sm:text-sm" style={{ color: confirming ? '#f1f5f9' : '#94a3b8' }}>
-                  {confirming ? (
-                    <>Confirm: <span className="font-semibold" style={{ color }}>{selectedChoice?.title}</span>?</>
-                  ) : (
-                    <>Selected: <span className="font-semibold" style={{ color }}>{selectedChoice?.title}</span></>
-                  )}
-                </p>
-                <div className="flex items-center gap-2 flex-shrink-0">
-                  {confirming && (
-                    <button
-                      onClick={() => setConfirming(false)}
-                      className="font-ui text-xs tracking-wide px-3 py-2 rounded-sm"
-                      style={{ color: 'rgba(148,163,184,0.5)', border: '1px solid rgba(148,163,184,0.15)' }}
-                    >
-                      Reconsider
-                    </button>
-                  )}
+          <div className="flex items-center justify-between gap-3">
+            {/* Back — always visible on left */}
+            <button
+              onClick={onBack}
+              className="font-ui text-xs tracking-widest px-3 py-2 rounded-sm flex-shrink-0"
+              style={{ color: 'rgba(148,163,184,0.5)', border: '1px solid rgba(148,163,184,0.15)' }}
+            >
+              ← Back
+            </button>
+
+            {/* Right side — status + action */}
+            <div className="flex items-center gap-2 flex-shrink-0">
+              {!selected && !alreadyDecided && (
+                <span className="font-mono text-[9px] tracking-wide uppercase hidden sm:inline" style={{ color: 'rgba(148,163,184,0.4)' }}>
+                  Select an option
+                </span>
+              )}
+              {selected && !alreadyDecided && !confirming && (
+                <>
+                  <span className="font-ui text-xs hidden sm:inline" style={{ color: '#94a3b8' }}>
+                    <span className="font-semibold" style={{ color }}>{selectedChoice?.title}</span>
+                  </span>
                   <button
                     onClick={handleConfirm}
-                    className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm transition-all"
-                    style={{
-                      background: confirming ? `${color}22` : 'rgba(59,130,246,0.12)',
-                      border: `1px solid ${confirming ? `${color}55` : 'rgba(59,130,246,0.4)'}`,
-                      color: confirming ? color : '#93c5fd',
-                    }}
+                    className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
+                    style={{ background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.4)', color: '#93c5fd' }}
                   >
-                    {confirming ? 'Confirm Decision →' : 'Proceed →'}
+                    Proceed →
                   </button>
-                </div>
-              </motion.div>
-            ) : alreadyDecided && selected ? (
-              <motion.div
-                key="already-decided"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
-              >
-                <p className="font-ui text-xs sm:text-sm" style={{ color: '#94a3b8' }}>
-                  Decision recorded: <span className="font-semibold" style={{ color }}>Option {selected} — {selectedChoice?.title}</span>
-                </p>
+                </>
+              )}
+              {selected && !alreadyDecided && confirming && (
+                <>
+                  <span className="font-ui text-xs hidden sm:inline" style={{ color: '#f1f5f9' }}>
+                    Confirm <span className="font-semibold" style={{ color }}>{selectedChoice?.title}</span>?
+                  </span>
+                  <button
+                    onClick={() => setConfirming(false)}
+                    className="font-ui text-xs tracking-wide px-3 py-2 rounded-sm"
+                    style={{ color: 'rgba(148,163,184,0.5)', border: '1px solid rgba(148,163,184,0.15)' }}
+                  >
+                    Reconsider
+                  </button>
+                  <button
+                    onClick={handleConfirm}
+                    className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
+                    style={{ background: `${color}22`, border: `1px solid ${color}55`, color }}
+                  >
+                    Confirm →
+                  </button>
+                </>
+              )}
+              {alreadyDecided && selected && (
                 <button
                   onClick={() => onDecide(selected, decision.choices.find(c => c.id === selected)!)}
-                  className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm flex-shrink-0"
+                  className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
                   style={{ background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.4)', color: '#93c5fd' }}
                 >
                   Continue →
                 </button>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="select-prompt"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex items-center justify-between"
-              >
-                <p className="font-mono text-[9px] tracking-[0.3em] uppercase" style={{ color: 'rgba(148,163,184,0.4)' }}>
-                  Select an option above to proceed
-                </p>
-                <button
-                  onClick={onBack}
-                  className="font-ui text-xs tracking-widest"
-                  style={{ color: 'rgba(148,163,184,0.35)' }}
-                >
-                  ← Back
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -754,22 +764,6 @@ export default function ChapterDecisionPage({ chapterIndex }: { chapterIndex: nu
       <div className="absolute inset-0" style={{ background: 'rgba(8,12,20,0.82)' }} />
       <div className="absolute inset-0 scan-lines" />
 
-      {/* Back button — always visible top-left */}
-      {(innerPhase === 'decision' || innerPhase === 'consequence' || innerPhase === 'chapter-complete') && (
-        <button
-          onClick={handleBack}
-          className="absolute top-4 left-4 z-30 font-ui text-xs tracking-widest px-3 py-2 rounded-sm"
-          style={{
-            color: 'rgba(148,163,184,0.5)',
-            background: 'rgba(8,12,20,0.7)',
-            border: '1px solid rgba(148,163,184,0.12)',
-            backdropFilter: 'blur(8px)',
-          }}
-        >
-          ← Back
-        </button>
-      )}
-
       <AnimatePresence mode="wait">
         {innerPhase === 'intro' && (
           <motion.div
@@ -817,9 +811,9 @@ export default function ChapterDecisionPage({ chapterIndex }: { chapterIndex: nu
             transition={{ duration: 0.4 }}
           >
             {decision.id === '1.1' ? (
-              <FullConsequencePanel choiceId={lastChoiceId} onNext={handleAfterConsequence} />
+              <FullConsequencePanel choiceId={lastChoiceId} onNext={handleAfterConsequence} onBack={handleBack} />
             ) : (
-              <BriefConsequencePanel decision={decision} choiceId={lastChoiceId} onNext={handleAfterConsequence} />
+              <BriefConsequencePanel decision={decision} choiceId={lastChoiceId} onNext={handleAfterConsequence} onBack={handleBack} />
             )}
           </motion.div>
         )}
@@ -836,6 +830,7 @@ export default function ChapterDecisionPage({ chapterIndex }: { chapterIndex: nu
             <ChapterCompletePanel
               chapter={chapter}
               onNext={handleChapterComplete}
+              onBack={handleBack}
               isLast={isLastChapter}
             />
           </motion.div>

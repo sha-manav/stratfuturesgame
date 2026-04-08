@@ -131,7 +131,7 @@ export default function LandingPage() {
           animate={{ opacity: 1 }}
           transition={{ duration: dur(0.6), delay: dur(2.2) }}
         >
-          USE KEYBOARD ARROWS OR CLICK TO NAVIGATE
+          CLICK TO NAVIGATE
         </motion.p>
       </div>
 

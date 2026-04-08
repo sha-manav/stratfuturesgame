@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useGameStore } from '../../store/gameStore';
 
@@ -12,20 +12,11 @@ const METRICS = [
 export default function MetricHUD() {
   const metrics = useGameStore((s) => s.metrics);
   const shouldReduce = useReducedMotion();
-  const [collapsed, setCollapsed] = useState(false);
-
-  // Auto-collapse on small screens
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 768px)');
-    setCollapsed(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setCollapsed(e.matches);
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
+  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <div
-      className="fixed left-2 top-14 z-40"
+      className="fixed right-3 top-3 z-50"
       style={{ pointerEvents: 'auto' }}
     >
       <motion.div
@@ -34,10 +25,10 @@ export default function MetricHUD() {
         exit={{ opacity: 0, x: -12 }}
         transition={{ duration: shouldReduce ? 0 : 0.4 }}
       >
-        {/* Toggle button — always visible */}
+        {/* Toggle button — always visible, right-aligned */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="rounded-sm px-2 py-1.5 mb-1 flex items-center gap-1.5 transition-all"
+          className="rounded-sm px-2 py-1.5 mb-1 flex items-center gap-1.5 transition-all ml-auto"
           style={{
             background: 'rgba(8,12,20,0.9)',
             border: '1px solid rgba(148,163,184,0.12)',
@@ -45,7 +36,7 @@ export default function MetricHUD() {
           }}
         >
           <span className="font-mono text-[7px] tracking-[0.2em] uppercase" style={{ color: 'rgba(148,163,184,0.5)' }}>
-            {collapsed ? '▶' : '◀'} Scores
+            Scores {collapsed ? '▼' : '▲'}
           </span>
           {/* Mini inline metrics when collapsed */}
           {collapsed && (
