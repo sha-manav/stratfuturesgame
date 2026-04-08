@@ -34,7 +34,7 @@ interface GameState {
   resetGame: () => void;
 }
 
-const STORAGE_KEY = 'stratfutures_save_v2';
+const STORAGE_KEY = 'stratfutures_save_v3';
 const clamp = (val: number, min = 0, max = 100) => Math.max(min, Math.min(max, val));
 
 const initialMetrics: Metrics = {
