@@ -76,3 +76,18 @@ export const characters: Character[] = [
 
 export const getCharacter = (id: string): Character | undefined =>
   characters.find((c) => c.id === id);
+
+// Map decision-tree character IDs (e.g. 'sarah_chen') to character data IDs (e.g. 'sarah')
+const DECISION_ID_MAP: Record<string, string> = {
+  sarah_chen: 'sarah',
+  maya_patel: 'maya',
+  james_nakamura: 'james',
+  li_jian: 'lijian',
+  anna_karlsson: 'anna',
+  all_five: 'all_five',
+};
+
+export const getCharacterByDecisionId = (decisionCharId: string): Character | undefined => {
+  const mappedId = DECISION_ID_MAP[decisionCharId] ?? decisionCharId;
+  return characters.find((c) => c.id === mappedId);
+};

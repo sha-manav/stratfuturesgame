@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
 import { CHAPTERS, type DecisionNode, type DecisionChoice, DECISION_1_1_FULL_CONSEQUENCES } from '../content/decisions';
 import ClassifiedBadge from '../components/ui/ClassifiedBadge';
-import CharacterPip from '../components/ui/CharacterPip';
+import { getCharacterByDecisionId } from '../content/characters';
 
 
 const CHARACTER_COLORS: Record<string, string> = {
@@ -50,7 +50,7 @@ function FullConsequencePanel({ choiceId, onNext }: { choiceId: string; onNext: 
 
   return (
     <div className="absolute inset-0 overflow-y-auto">
-      <div className="min-h-full flex flex-col p-5 md:p-8 pb-24">
+      <div className="min-h-full flex flex-col p-4 pt-14 md:p-8 md:pt-14 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -179,15 +179,27 @@ function BriefConsequencePanel({
 
   return (
     <div className="absolute inset-0 overflow-y-auto">
-      <div className="min-h-full flex flex-col p-5 md:p-8 pb-24 max-w-2xl mx-auto">
+      <div className="min-h-full flex flex-col p-4 pt-14 md:p-8 md:pt-14 pb-24 max-w-2xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: shouldReduce ? 0 : 0.5 }}
           className="flex-shrink-0 mb-6"
         >
-          <div className="flex items-center gap-2 mb-3">
-            <CharacterPip characterId={decision.characterId} showName />
+          <div
+            className="flex items-center gap-2 mb-3 px-3 py-1.5 rounded-sm inline-flex"
+            style={{
+              background: `${color}12`,
+              border: `1px solid ${color}30`,
+            }}
+          >
+            <div
+              className="w-2 h-2 rounded-full flex-shrink-0"
+              style={{ background: color, boxShadow: `0 0 6px ${color}80` }}
+            />
+            <span className="font-ui text-[11px] font-semibold tracking-wide" style={{ color }}>
+              {CHARACTER_LABELS[decision.characterId] ?? decision.characterName}
+            </span>
           </div>
           <div className="font-mono text-[8px] tracking-[0.4em] uppercase mb-2" style={{ color: 'rgba(245,158,11,0.6)' }}>
             OUTCOME — Decision {decision.id}
@@ -329,7 +341,7 @@ function DecisionPanel({
 
   return (
     <div className="absolute inset-0 overflow-y-auto">
-      <div className="min-h-full flex flex-col p-5 md:p-8" style={{ paddingBottom: '5rem' }}>
+      <div className="min-h-full flex flex-col p-4 pt-14 md:p-8 md:pt-14" style={{ paddingBottom: '7rem' }}>
 
         {/* Top bar */}
         <motion.div
@@ -352,15 +364,41 @@ function DecisionPanel({
           </div>
         </motion.div>
 
-        {/* Character + decision header */}
+        {/* Character decision-maker banner + decision header */}
         <motion.div
           className="mb-5 flex-shrink-0"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.1 }}
         >
-          <div className="flex items-center gap-3 mb-2">
-            <CharacterPip characterId={decision.characterId} showName />
+          {/* Prominent "whose decision" banner */}
+          <div
+            className="flex items-center gap-3 mb-3 px-4 py-2.5 rounded-sm"
+            style={{
+              background: `${color}12`,
+              border: `1px solid ${color}35`,
+              borderLeft: `3px solid ${color}`,
+            }}
+          >
+            <div
+              className="w-3 h-3 rounded-full flex-shrink-0"
+              style={{ background: color, boxShadow: `0 0 8px ${color}80` }}
+            />
+            <div className="flex-1 min-w-0">
+              <div className="font-ui text-sm font-bold" style={{ color }}>
+                {decision.characterId === 'all_five'
+                  ? 'ALL FIVE PROTAGONISTS\u2019 DECISION'
+                  : `${CHARACTER_LABELS[decision.characterId]?.toUpperCase() ?? decision.characterName.toUpperCase()}\u2019S DECISION`}
+              </div>
+              <div className="font-mono text-[9px] tracking-wide" style={{ color: 'rgba(148,163,184,0.6)' }}>
+                {decision.characterId === 'all_five'
+                  ? 'A collective choice by all five decision-makers'
+                  : (() => {
+                      const char = getCharacterByDecisionId(decision.characterId);
+                      return char ? `${char.role} · ${char.location}` : decision.characterName;
+                    })()}
+              </div>
+            </div>
           </div>
           <div className="font-mono text-[8px] tracking-[0.4em] uppercase mb-1" style={{ color: `${color}90` }}>
             Decision {decision.id}
@@ -409,7 +447,9 @@ function DecisionPanel({
           >
             <div className="font-mono text-[9px] tracking-[0.35em] uppercase mb-1"
               style={{ color: 'rgba(148,163,184,0.4)' }}>
-              SELECT YOUR RECOMMENDATION
+              {decision.characterId === 'all_five'
+                ? 'CHOOSE THE COLLECTIVE APPROACH'
+                : `ADVISE ${(CHARACTER_LABELS[decision.characterId] ?? decision.characterName).toUpperCase()}`}
             </div>
 
             {decision.choices.map((choice) => {
@@ -469,8 +509,15 @@ function DecisionPanel({
           </motion.div>
         </div>
 
-        {/* Bottom action bar — always visible */}
-        <div className="flex-shrink-0 mt-4">
+        {/* Bottom action bar — fixed at bottom, safe from overlaps */}
+        <div
+          className="fixed bottom-0 left-0 right-0 z-40 px-3 py-3 md:px-6 md:py-4"
+          style={{
+            background: 'rgba(8,12,20,0.95)',
+            borderTop: '1px solid rgba(148,163,184,0.1)',
+            backdropFilter: 'blur(12px)',
+          }}
+        >
           <AnimatePresence mode="wait">
             {selected && !alreadyDecided ? (
               <motion.div
@@ -479,16 +526,16 @@ function DecisionPanel({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 6 }}
                 transition={{ duration: shouldReduce ? 0 : 0.3 }}
-                className="flex items-center justify-between glass-panel rounded-sm px-5 py-3"
+                className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
               >
-                <p className="font-ui text-sm" style={{ color: confirming ? '#f1f5f9' : '#94a3b8' }}>
+                <p className="font-ui text-xs sm:text-sm" style={{ color: confirming ? '#f1f5f9' : '#94a3b8' }}>
                   {confirming ? (
-                    <>Confirm: <span className="font-semibold" style={{ color }}>{selectedChoice?.title}</span>? This cannot be undone.</>
+                    <>Confirm: <span className="font-semibold" style={{ color }}>{selectedChoice?.title}</span>?</>
                   ) : (
                     <>Selected: <span className="font-semibold" style={{ color }}>{selectedChoice?.title}</span></>
                   )}
                 </p>
-                <div className="flex items-center gap-2 ml-4">
+                <div className="flex items-center gap-2 flex-shrink-0">
                   {confirming && (
                     <button
                       onClick={() => setConfirming(false)}
@@ -516,14 +563,14 @@ function DecisionPanel({
                 key="already-decided"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center justify-between glass-panel rounded-sm px-5 py-3"
+                className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
               >
-                <p className="font-ui text-sm" style={{ color: '#94a3b8' }}>
+                <p className="font-ui text-xs sm:text-sm" style={{ color: '#94a3b8' }}>
                   Decision recorded: <span className="font-semibold" style={{ color }}>Option {selected} — {selectedChoice?.title}</span>
                 </p>
                 <button
                   onClick={() => onDecide(selected, decision.choices.find(c => c.id === selected)!)}
-                  className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
+                  className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm flex-shrink-0"
                   style={{ background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.4)', color: '#93c5fd' }}
                 >
                   Continue →
@@ -534,7 +581,7 @@ function DecisionPanel({
                 key="select-prompt"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="glass-panel rounded-sm px-5 py-3 flex items-center justify-between"
+                className="flex items-center justify-between"
               >
                 <p className="font-mono text-[9px] tracking-[0.3em] uppercase" style={{ color: 'rgba(148,163,184,0.4)' }}>
                   Select an option above to proceed

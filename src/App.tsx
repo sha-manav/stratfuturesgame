@@ -124,7 +124,6 @@ export default function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: shouldReduce ? 0 : 0.4 }}
-            style={{ pointerEvents: 'none' }}
           >
             <MetricHUD />
           </motion.div>

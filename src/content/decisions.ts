@@ -75,15 +75,15 @@ const chapter1: Chapter = {
       context:
         "IMMEDIATE: Chinese Coast Guard vessels have blocked Philippines resupply to Second Thomas Shoal for 48 hours. Manila formally invoked the US-Philippines Mutual Defense Treaty 2 hours ago.\n\nALLIED POSTURE: Japan and Australia are monitoring closely, awaiting US coordination. Both have assets that could be deployed within 24 hours, but won't move without American leadership.\n\nINTELLIGENCE ASSESSMENT: Beijing is testing whether US commitment to treaty allies remains credible after three years of strategic drift. Allied capitals are watching this as the defining moment.",
       question: 'What response do you recommend to the National Security Advisor?',
-      critical: false,
-      heroImage: '/assets/page_nine_south_china_sea_crisis.webp',
+      critical: true,
+      heroImage: '/assets/situation_room_interior.webp',
       choices: [
         {
           id: 'A',
           title: 'Aggressive Counter-Offer',
           description:
             "Recommend US provide immediate $5B infrastructure package to Philippines. Deploy naval assets for 'freedom of navigation' within 48 hours. Signal strong commitment, deter further Chinese action.",
-          impactLabels: ['Alliance Trust +20', 'Fiscal Health −15', 'Domestic Support −10'],
+          impactLabels: ['Alliance Trust +20', 'Domestic Support −10'],
           risk: "Congressional backlash, 'forever wars' narrative",
           metrics: { allianceTrust: 20, domesticResilience: -10 },
           trajectory: { alliance_path: 9, escalation_path: 3 },
@@ -97,9 +97,9 @@ const chapter1: Chapter = {
           title: 'Japan-Led Coalition',
           description:
             'Encourage Japan-Australia-led response with US coordination role. Multilateral burden-sharing, builds allied self-reliance. Slower but more sustainable approach to regional security.',
-          impactLabels: ['Alliance Trust +10', 'Multilateral Cohesion +15', 'Tech Advantage −5'],
+          impactLabels: ['Alliance Trust +10', 'Strategic Coherence +10', 'Tech Advantage −5'],
           risk: 'Slower response, China moves first',
-          metrics: { allianceTrust: 10, strategicCoherence: 15, techEdge: -5 },
+          metrics: { allianceTrust: 10, strategicCoherence: 10, techEdge: -5 },
           trajectory: { alliance_path: 6, tech_path: -3 },
           consequence: {
             headline: '72 Hours Later — Multilateral Coordination',
@@ -111,7 +111,7 @@ const chapter1: Chapter = {
           title: 'Strategic Restraint',
           description:
             'Diplomatic protest and economic pressure, but preserve resources for AI/tech competition. Signal priorities lie in long-term strategic advantage, not every regional dispute. Let Philippines handle locally.',
-          impactLabels: ['Alliance Trust −25', 'Tech Advantage +15', 'Fiscal Health +10'],
+          impactLabels: ['Alliance Trust −25', 'Tech Advantage +15', 'Domestic Support +10'],
           risk: 'Philippines drifts toward China, allies hedge',
           metrics: { allianceTrust: -25, techEdge: 15, domesticResilience: 10 },
           trajectory: { alliance_path: -9, tech_path: 6, restraint_path: 9 },
@@ -720,11 +720,11 @@ const chapter3: Chapter = {
 // ============================================================
 
 const chapter56: Chapter = {
-  number: 5,
+  number: 4,
   name: 'The Long Game & Winter of Choices',
   subtitle: 'August 2029 — February 2030',
   description:
-    'Personal costs become real. Li Jian faces a whistleblower choice. Maya faces Chinese investor pressure. All five protagonists converge at Munich. A Chinese AI breakthrough forces a final strategic decision.',
+    'Months have passed since the Manila Incident. The consequences of your crisis decisions have cascaded through capitals, boardrooms, and families. Now personal costs become real. Li Jian faces a whistleblower choice. Maya faces Chinese investor pressure. All five protagonists converge at the Munich Security Conference. A Chinese AI breakthrough forces a final strategic decision.',
   backgroundImage: '/assets/diplomatic_fallout_backplate.webp',
   decisions: [
     {
@@ -1033,7 +1033,7 @@ export const DECISION_1_1_FULL_CONSEQUENCES = {
         positive: true,
       },
       {
-        label: 'Multilateral Cohesion +15',
+        label: 'Strategic Coherence +10',
         value:
           'QUAD framework strengthened. New trilateral coordination mechanism established. Sets precedent for allied self-reliance on security matters.',
         positive: true,

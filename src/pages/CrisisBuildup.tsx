@@ -808,8 +808,9 @@ export default function CrisisBuildup() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Step progress indicator */}
-      <div className="absolute top-5 left-1/2 -translate-x-1/2 flex gap-1.5 z-50">
+      {/* Step progress indicator — safe from button overlap */}
+      <div className="absolute top-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-50 px-3 py-1.5 rounded-full"
+        style={{ background: 'rgba(8,12,20,0.6)', backdropFilter: 'blur(8px)' }}>
         {STEPS.map((_, i) => (
           <div
             key={i}

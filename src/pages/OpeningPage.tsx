@@ -119,31 +119,49 @@ export default function OpeningPage() {
             </p>
           </motion.div>
 
-          {/* Continue button */}
+          {/* Continue buttons — clear choice between bios and jumping ahead */}
           <motion.div
-            className="flex items-center gap-4 mt-2"
+            className="flex flex-col gap-3 mt-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: dur(0.6), delay: del(1.5) }}
           >
-            <button
-              onClick={() => navigate(2)}
-              className="font-ui font-semibold text-xs tracking-[0.25em] uppercase px-6 py-2.5 rounded-sm"
-              style={{
-                background: 'rgba(59,130,246,0.12)',
-                border: '1px solid rgba(59,130,246,0.4)',
-                color: '#93c5fd',
-              }}
-            >
-              Meet the Players →
-            </button>
-            <button
-              onClick={() => navigate(0)}
-              className="font-ui text-xs tracking-widest"
-              style={{ color: 'rgba(148,163,184,0.4)' }}
-            >
-              ← Back
-            </button>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <button
+                onClick={() => navigate(2)}
+                className="font-ui font-semibold text-xs tracking-[0.25em] uppercase px-6 py-2.5 rounded-sm"
+                style={{
+                  background: 'rgba(59,130,246,0.12)',
+                  border: '1px solid rgba(59,130,246,0.4)',
+                  color: '#93c5fd',
+                }}
+              >
+                Meet the Players →
+              </button>
+              <button
+                onClick={() => navigate(3)}
+                className="font-ui text-xs tracking-[0.15em] uppercase px-5 py-2.5 rounded-sm"
+                style={{
+                  background: 'rgba(148,163,184,0.06)',
+                  border: '1px solid rgba(148,163,184,0.15)',
+                  color: 'rgba(148,163,184,0.55)',
+                }}
+              >
+                Skip to the Crisis →
+              </button>
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => navigate(0)}
+                className="font-ui text-xs tracking-widest"
+                style={{ color: 'rgba(148,163,184,0.4)' }}
+              >
+                ← Back
+              </button>
+              <span className="font-mono text-[8px] tracking-wide" style={{ color: 'rgba(148,163,184,0.25)' }}>
+                Meet the Players introduces the five decision-makers
+              </span>
+            </div>
           </motion.div>
         </div>
       </div>

@@ -338,58 +338,92 @@ export default function ProtagonistsPage() {
     <div className="relative w-full h-screen overflow-hidden bg-[#080c14]">
       <ProtagonistPanel data={current} visible={true} />
 
-      {/* Navigation */}
-      <div className="absolute bottom-6 left-8 right-8 flex items-center justify-between z-30">
-        {/* Progress dots */}
-        <div className="flex items-center gap-2">
-          {protagonists.map((p, i) => (
-            <button
-              key={p.id}
-              onClick={() => setStep(i)}
-              className="transition-all duration-300"
-              style={{
-                width: i === step ? '20px' : '6px',
-                height: '6px',
-                borderRadius: '3px',
-                background: i === step ? current.color : 'rgba(148,163,184,0.3)',
-                boxShadow: i === step ? `0 0 8px ${current.color}80` : 'none',
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Prev/Next */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={goPrev}
-            className="font-ui text-xs tracking-widest px-4 py-2 rounded-sm"
-            style={{
-              color: 'rgba(148,163,184,0.5)',
-              border: '1px solid rgba(148,163,184,0.15)',
-            }}
-          >
-            ← Back
-          </button>
-          <button
-            onClick={goNext}
-            className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
-            style={{
-              background: `${current.color}18`,
-              border: `1px solid ${current.color}50`,
-              color: current.color,
-            }}
-          >
-            {step < protagonists.length - 1 ? 'Next →' : 'Continue →'}
-          </button>
+      {/* Top header — makes it clear this is a character bio section */}
+      <div
+        className="absolute top-0 left-0 right-0 z-30 px-4 py-3 md:px-8 flex items-center justify-between"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(8,12,20,0.9) 0%, transparent 100%)',
+        }}
+      >
+        <div className="font-mono text-[9px] tracking-[0.35em] uppercase" style={{ color: 'rgba(59,130,246,0.6)' }}>
+          MEET THE PLAYERS
         </div>
       </div>
 
-      {/* Character counter */}
+      {/* Navigation — fixed bottom bar */}
       <div
-        className="absolute top-6 right-8 font-mono text-[9px] tracking-widest"
+        className="absolute bottom-0 left-0 right-0 z-30 px-4 py-4 md:px-8"
+        style={{
+          background: 'linear-gradient(to top, rgba(8,12,20,0.95) 0%, rgba(8,12,20,0.8) 60%, transparent 100%)',
+        }}
+      >
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          {/* Progress dots + character name */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              {protagonists.map((p, i) => (
+                <button
+                  key={p.id}
+                  onClick={() => setStep(i)}
+                  className="transition-all duration-300"
+                  style={{
+                    width: i === step ? '20px' : '6px',
+                    height: '6px',
+                    borderRadius: '3px',
+                    background: i === step ? current.color : 'rgba(148,163,184,0.3)',
+                    boxShadow: i === step ? `0 0 8px ${current.color}80` : 'none',
+                  }}
+                />
+              ))}
+            </div>
+            <span className="font-mono text-[9px] tracking-wide" style={{ color: 'rgba(148,163,184,0.45)' }}>
+              {step + 1} of {protagonists.length}
+            </span>
+          </div>
+
+          {/* Prev/Next */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={goPrev}
+              className="font-ui text-xs tracking-widest px-4 py-2 rounded-sm"
+              style={{
+                color: 'rgba(148,163,184,0.5)',
+                border: '1px solid rgba(148,163,184,0.15)',
+              }}
+            >
+              ← Back
+            </button>
+            <button
+              onClick={() => navigate(3)}
+              className="font-ui text-[10px] tracking-widest px-3 py-2 rounded-sm"
+              style={{
+                color: 'rgba(148,163,184,0.4)',
+                border: '1px solid rgba(148,163,184,0.1)',
+              }}
+            >
+              Skip to Crisis →
+            </button>
+            <button
+              onClick={goNext}
+              className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
+              style={{
+                background: `${current.color}18`,
+                border: `1px solid ${current.color}50`,
+                color: current.color,
+              }}
+            >
+              {step < protagonists.length - 1 ? 'Next →' : 'Continue →'}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Character label */}
+      <div
+        className="absolute top-6 right-4 md:right-8 font-mono text-[9px] tracking-widest"
         style={{ color: 'rgba(148,163,184,0.3)' }}
       >
-        {step + 1} / {protagonists.length}
+        CHARACTER BIO · {step + 1} / {protagonists.length}
       </div>
     </div>
   );
