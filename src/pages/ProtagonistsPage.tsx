@@ -54,8 +54,8 @@ const protagonists: ProtagonistData[] = [
       'His father built this factory in 1985. His grandfather survived WWII to rebuild Japan. Now James faced a choice that would determine whether his children would have a company—or a country—to inherit.',
     dialogue: 'How quickly can we retool for military production?',
     sceneImage: '/assets/page_two_james_nakamura.webp',
-    color: '#DC2626',
-    glowClass: 'glow-crimson',
+    color: '#10B981',
+    glowClass: 'glow-jade',
   },
   {
     id: 'lijian',
@@ -69,8 +69,8 @@ const protagonists: ProtagonistData[] = [
       "But what my daughter sees from Cambridge... what she doesn't say in our video calls... tells me more than any intelligence report.",
     dialogue: '',
     sceneImage: '/assets/page_two_li_jian.webp',
-    color: '#10B981',
-    glowClass: 'glow-jade',
+    color: '#DC2626',
+    glowClass: 'glow-crimson',
   },
   {
     id: 'anna',
@@ -251,7 +251,7 @@ function ConnectionScreen({ onContinue, onBack }: { onContinue: () => void; onBa
         >
           {/* Character color pips */}
           <div className="flex items-center justify-center gap-3 mb-8">
-            {['#3B82F6', '#F59E0B', '#DC2626', '#10B981', '#94A3B8'].map((color, i) => (
+            {['#3B82F6', '#F59E0B', '#10B981', '#DC2626', '#94A3B8'].map((color, i) => (
               <motion.div
                 key={color}
                 className="w-2.5 h-2.5 rounded-full"

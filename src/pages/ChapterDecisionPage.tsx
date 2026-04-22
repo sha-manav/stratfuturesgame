@@ -2,15 +2,14 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
 import { CHAPTERS, type DecisionNode, type DecisionChoice, DECISION_1_1_FULL_CONSEQUENCES } from '../content/decisions';
-import ClassifiedBadge from '../components/ui/ClassifiedBadge';
 import { getCharacterByDecisionId } from '../content/characters';
 
 
 const CHARACTER_COLORS: Record<string, string> = {
   sarah_chen: '#3B82F6',
   maya_patel: '#F59E0B',
-  james_nakamura: '#DC2626',
-  li_jian: '#10B981',
+  james_nakamura: '#10B981',
+  li_jian: '#DC2626',
   anna_karlsson: '#94A3B8',
   all_five: '#8B5CF6',
 };
@@ -377,7 +376,6 @@ function DecisionPanel({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: shouldReduce ? 0 : 0.4 }}
         >
-          <ClassifiedBadge size="sm" />
           {decision.critical && (
             <span className="font-mono text-[8px] tracking-[0.3em] uppercase px-2 py-1 rounded-sm"
               style={{ color: 'rgba(239,68,68,0.9)', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)' }}>
@@ -425,8 +423,15 @@ function DecisionPanel({
               </div>
             </div>
           </div>
-          <div className="font-mono text-[8px] tracking-[0.4em] uppercase mb-1" style={{ color: `${color}90` }}>
-            Decision {decision.id}
+          <div className="flex items-baseline gap-3 mb-1 flex-wrap">
+            <div className="font-mono text-[8px] tracking-[0.4em] uppercase" style={{ color: `${color}90` }}>
+              Decision {decision.id}
+            </div>
+            {decision.date && (
+              <div className="font-mono text-[8px] tracking-[0.35em] uppercase" style={{ color: 'rgba(148,163,184,0.55)' }}>
+                {decision.date}
+              </div>
+            )}
           </div>
           <h2 style={{ fontFamily: 'Georgia, serif', fontSize: 'clamp(1.2rem,2.8vw,1.9rem)', fontWeight: 700, color: '#f1f5f9' }}>
             {decision.decisionTitle}

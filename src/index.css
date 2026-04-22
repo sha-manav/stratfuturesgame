@@ -6,10 +6,10 @@
     --sarah-blue-dark: #1D4ED8;
     --maya-amber: #F59E0B;
     --maya-amber-dark: #B45309;
-    --james-crimson: #DC2626;
-    --james-crimson-dark: #991B1B;
-    --li-jade: #10B981;
-    --li-jade-dark: #065F46;
+    --james-jade: #10B981;
+    --james-jade-dark: #065F46;
+    --li-crimson: #DC2626;
+    --li-crimson-dark: #991B1B;
     --anna-silver: #94A3B8;
     --anna-silver-dark: #475569;
     --intel-green: #00FF41;
@@ -81,15 +81,6 @@
 .scan-lines {
   background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
   pointer-events: none;
-}
-
-/* Classified stamp style */
-.classified-stamp {
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(239, 68, 68, 0.95);
 }
 
 /* Metric bar */

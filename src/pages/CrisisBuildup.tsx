@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
-import ClassifiedBadge from '../components/ui/ClassifiedBadge';
 
 type CrisisStep = 'intel' | 'sarah-office' | 'global-montage' | 'clock' | 'decision-approach';
 
@@ -28,17 +27,6 @@ function IntelAssessment({ onNext, onPrev }: { onNext: () => void; onPrev: () =>
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: shouldReduce ? 0 : 0.7 }}
         >
-          {/* Classification header */}
-          <div
-            className="text-center py-2 mb-4 rounded-sm"
-            style={{
-              background: 'rgba(239,68,68,0.08)',
-              border: '1px solid rgba(239,68,68,0.3)',
-            }}
-          >
-            <ClassifiedBadge size="md" className="justify-center" />
-          </div>
-
           {/* Document header */}
           <div
             className="px-5 py-4 mb-1 rounded-sm animate-intel-flicker"
@@ -58,7 +46,7 @@ function IntelAssessment({ onNext, onPrev }: { onNext: () => void; onPrev: () =>
               className="font-mono text-[8px] text-center"
               style={{ color: 'rgba(148,163,184,0.5)', letterSpacing: '0.2em' }}
             >
-              CLASSIFICATION: TS//SI//REL TO USA, FVEY | DATE: 15 JAN 2029 | TIME: 0530 EST
+              15 JANUARY 2029 · 0530 EST
             </div>
           </div>
 
@@ -327,7 +315,7 @@ const globalPanels = [
   {
     image: '/assets/page_six_europe.webp',
     city: 'Stockholm',
-    text: 'NATO consultation under Article 4 requested by three member states.',
+    text: 'Three member states request Article 4 consultations — the alliance mechanism for coordinated consultation, intelligence-sharing, and defensive signaling when members feel their security is threatened. Not Article 5.',
   },
   {
     image: '/assets/page_six_global.webp',
@@ -419,7 +407,7 @@ function GlobalMontage({ onNext, onPrev }: { onNext: () => void; onPrev: () => v
             }}
           >
             <div className="animate-ticker whitespace-nowrap font-mono text-[9px] tracking-widest" style={{ color: 'rgba(59,130,246,0.7)' }}>
-              BREAKING: CMSA VESSELS MAINTAIN POSITION AT SECOND THOMAS SHOAL &nbsp;&nbsp;|&nbsp;&nbsp; MANILA INVOKES MUTUAL DEFENSE TREATY &nbsp;&nbsp;|&nbsp;&nbsp; GOLD UP 3.2% &nbsp;&nbsp;|&nbsp;&nbsp; DEFENSE STOCKS SURGE &nbsp;&nbsp;|&nbsp;&nbsp; NATO ARTICLE 4 CONSULTATIONS REQUESTED &nbsp;&nbsp;|&nbsp;&nbsp; TOKYO MARKETS DOWN 4.1% &nbsp;&nbsp;|&nbsp;&nbsp; BEIJING: "CHINA EXERCISING SOVEREIGN RIGHTS" &nbsp;&nbsp;|&nbsp;&nbsp; BREAKING: CMSA VESSELS MAINTAIN POSITION AT SECOND THOMAS SHOAL &nbsp;&nbsp;|&nbsp;&nbsp; MANILA INVOKES MUTUAL DEFENSE TREATY &nbsp;&nbsp;|&nbsp;&nbsp; GOLD UP 3.2% &nbsp;&nbsp;|&nbsp;&nbsp; DEFENSE STOCKS SURGE &nbsp;&nbsp;
+              BREAKING: CMSA VESSELS MAINTAIN POSITION AT SECOND THOMAS SHOAL &nbsp;&nbsp;|&nbsp;&nbsp; MANILA INVOKES MUTUAL DEFENSE TREATY &nbsp;&nbsp;|&nbsp;&nbsp; GOLD UP 3.2% &nbsp;&nbsp;|&nbsp;&nbsp; DEFENSE STOCKS SURGE &nbsp;&nbsp;|&nbsp;&nbsp; NATO ARTICLE 4 CONSULTATIONS (NOT ARTICLE 5) REQUESTED &nbsp;&nbsp;|&nbsp;&nbsp; TOKYO MARKETS DOWN 4.1% &nbsp;&nbsp;|&nbsp;&nbsp; BEIJING: "CHINA EXERCISING SOVEREIGN RIGHTS" &nbsp;&nbsp;|&nbsp;&nbsp; BREAKING: CMSA VESSELS MAINTAIN POSITION AT SECOND THOMAS SHOAL &nbsp;&nbsp;|&nbsp;&nbsp; MANILA INVOKES MUTUAL DEFENSE TREATY &nbsp;&nbsp;|&nbsp;&nbsp; GOLD UP 3.2% &nbsp;&nbsp;|&nbsp;&nbsp; DEFENSE STOCKS SURGE &nbsp;&nbsp;
             </div>
           </div>
 
@@ -471,7 +459,7 @@ const crisisPanels = [
     id: 'james',
     name: 'James Nakamura',
     image: '/assets/page_seven_james_nakamura.webp',
-    color: '#DC2626',
+    color: '#10B981',
     update:
       'watches Nikkei plunge 4% on opening. Defense Ministry calling about accelerated drone delivery.',
   },
@@ -479,7 +467,7 @@ const crisisPanels = [
     id: 'lijian',
     name: 'Vice Minister Li Jian',
     image: '/assets/page_seven_li_jian.webp',
-    color: '#10B981',
+    color: '#DC2626',
     update: "in emergency video conference. Hardliners arguing for 'decisive action.'",
   },
   {

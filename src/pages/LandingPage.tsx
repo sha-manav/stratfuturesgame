@@ -39,10 +39,10 @@ export default function LandingPage() {
         transition={{ duration: dur(0.7), delay: dur(0.8) }}
       >
         <div className="font-mono text-[10px] tracking-[0.3em] uppercase" style={{ color: 'rgba(59,130,246,0.7)' }}>
-          JANUARY 15, 2029 — 0600 UTC
+          15 January 2029 — 0600 UTC
         </div>
         <div className="font-mono text-[9px] tracking-widest" style={{ color: 'rgba(148,163,184,0.4)' }}>
-          TS // NOFORN // CLASSIFICATION: ACTIVE
+          SCENARIO · ACTIVE
         </div>
       </motion.div>
 

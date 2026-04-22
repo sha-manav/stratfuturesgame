@@ -39,6 +39,7 @@ export interface DecisionNode {
   characterId: string;
   characterName: string;
   decisionTitle: string;
+  date: string;
   context: string;
   question: string;
   critical: boolean;
@@ -73,8 +74,9 @@ const chapter1: Chapter = {
       characterId: 'sarah_chen',
       characterName: 'Sarah Chen',
       decisionTitle: 'Philippines Crisis Response',
+      date: '15 January 2029',
       context:
-        "IMMEDIATE: Chinese Coast Guard vessels have blocked Philippines resupply to Second Thomas Shoal for 48 hours. Manila formally invoked the US-Philippines Mutual Defense Treaty 2 hours ago.\n\nALLIED POSTURE: Japan and Australia are monitoring closely, awaiting US coordination. Both have assets that could be deployed within 24 hours, but won't move without American leadership.\n\nINTELLIGENCE ASSESSMENT: Beijing is testing whether US commitment to treaty allies remains credible after three years of strategic drift. Allied capitals are watching this as the defining moment.",
+        "IMMEDIATE: Chinese Coast Guard vessels have blocked Philippines resupply to Second Thomas Shoal for 48 hours. Manila has formally invoked the US-Philippines Mutual Defense Treaty, citing sustained coercion of its public vessels and crews, and is seeking urgent consultations with Washington on a coordinated response in accordance with constitutional processes.\n\nALLIED POSTURE: Japan and Australia are monitoring closely, awaiting US coordination. Both have assets that could be deployed within 24 hours, but won't move without American leadership.\n\nINTELLIGENCE ASSESSMENT: Beijing is testing whether US commitment to treaty allies remains credible after three years of strategic drift. Allied capitals are watching this as the defining moment.",
       question: 'What response do you recommend to the National Security Advisor?',
       critical: true,
       heroImage: '/assets/situation_room_interior.webp',
@@ -83,15 +85,15 @@ const chapter1: Chapter = {
           id: 'A',
           title: 'Aggressive Counter-Offer',
           description:
-            "Recommend US provide immediate $5B infrastructure package to Philippines. Deploy naval assets for 'freedom of navigation' within 48 hours. Signal strong commitment, deter further Chinese action.",
+            "Recommend US provide immediate $5B infrastructure package to Philippines. Deploy naval assets for 'freedom of navigation' within 48 hours. Signal strong commitment, deter further Chinese action. Carries real escalation risk: a visible US force posture raises the chance Beijing misreads intent and both sides move up the ladder.",
           financialContext: '$20–25B over 5 years including military presence. Preserves $50B+ Pacific trade relationship and prevents costlier conflict later.',
-          impactLabels: ['Alliance Trust +20', 'Domestic Support −10'],
-          risk: "Congressional backlash, 'forever wars' narrative",
+          impactLabels: ['Alliance Trust +20', 'Escalation +6', 'Domestic Support −10'],
+          risk: "Escalation risk — US-PLA forces in close proximity, miscalculation at sea; congressional backlash and 'forever wars' narrative at home",
           metrics: { allianceTrust: 20, domesticResilience: -10 },
-          trajectory: { alliance_path: 9, escalation_path: 3 },
+          trajectory: { alliance_path: 9, escalation_path: 6 },
           consequence: {
             headline: '48 Hours Later — Full Commitment',
-            body: "Japan and Australia immediately pledge coordinated response. Philippine President publicly thanks US for 'unwavering commitment.' Beijing labels US a 'destabilizing force' but vessels begin gradual withdrawal. PLA Navy conducts an 'unrelated training exercise' 200 miles away. Congressional leaders question the $5B package, but allies take note.",
+            body: "Japan and Australia immediately pledge coordinated response. Philippine President publicly thanks US for 'unwavering commitment.' Beijing labels US a 'destabilizing force' but vessels begin gradual withdrawal. PLA Navy conducts an 'unrelated training exercise' 200 miles away. Two days in, a close-pass incident between a US destroyer and a PLAN frigate is de-conflicted at the last minute — a reminder that deterrence at this posture rides on the professionalism of crews in the moment. Congressional leaders question the $5B package, but allies take note.",
           },
         },
         {
@@ -132,8 +134,9 @@ const chapter1: Chapter = {
       characterId: 'maya_patel',
       characterName: 'Dr. Maya Patel',
       decisionTitle: 'AI Model Licensing to Allies',
+      date: '18 January 2029',
       context:
-        "The board is split on licensing Sentinel-7 — Sentinel AI's most advanced model — to Five Eyes allies. Investors worry about IP leakage and competitive erosion. Allies argue that a fragmented AI ecosystem weakens collective deterrence. You have the deciding vote.",
+        "The board is split on licensing Sentinel-7 — Sentinel AI's most advanced model — to Five Eyes allies. Inside the US, Sentinel-7 already operates on a tiered-access basis: a commercial tier for vetted enterprise customers, and a separate government and national-security tier already integrated into key federal and defense systems. The board question is whether to extend that tiered model abroad.\n\nInvestors worry about IP leakage and competitive erosion. Allies argue that a fragmented AI ecosystem weakens collective deterrence. You have the deciding vote.",
       question: 'How do you vote on the licensing proposal?',
       critical: false,
       heroImage: '/assets/sf_hq_interior.webp',
@@ -150,7 +153,7 @@ const chapter1: Chapter = {
           trajectory: { alliance_path: 4, tech_path: -2 },
           consequence: {
             headline: 'Sentinel-7 Goes Allied',
-            body: 'The licensing deal closes within a week. British GCHQ and Australian Signals Directorate integrate Sentinel-7 within months. The allied AI ecosystem strengthens. Investors are nervous — stock dips 6% — but three new government contracts materialize from partners who now trust the platform.',
+            body: 'The licensing deal closes within a week. Five Eyes governments adopt Sentinel-7 into key national security systems within months. The allied AI ecosystem strengthens. Investors are nervous — stock dips 6% — but three new government contracts materialize from partners who now trust the platform.',
           },
         },
         {
@@ -191,6 +194,7 @@ const chapter1: Chapter = {
       characterId: 'james_nakamura',
       characterName: 'James Nakamura',
       decisionTitle: 'Chinese Contract vs. AUKUS Partnership',
+      date: '22 January 2029',
       context:
         "A Chinese state-linked firm is offering $2 billion for Kōdo Robotics' next-generation autonomous systems. The deal would open the Chinese market and secure the company for a decade. Simultaneously, the AUKUS trilateral partnership has invited Kōdo to join its industrial base — access to classified technology, allied defense contracts, and a seat at the table shaping the Indo-Pacific's military architecture. One choice forecloses the other permanently.",
       question: "What is Kōdo Robotics' strategic direction?",
@@ -254,9 +258,9 @@ const chapter1: Chapter = {
 const chapter2: Chapter = {
   number: 2,
   name: 'Anticipatory Compliance',
-  subtitle: 'March 2029',
+  subtitle: '10 March 2029',
   description:
-    "China wins without fighting — through 'anticipatory compliance.' Allies self-censor and accommodate to avoid economic retaliation. Three protagonists face choices about whether to push back, accommodate, or find a third way.",
+    "Status — 10 March 2029: Chinese Coast Guard vessels have pulled back from blocking position at Second Thomas Shoal after the January confrontation, but the standoff is not resolved — both sides are holding and talks have stalled. Manila has not escalated; Beijing has not backed down. In the quiet space between crises, a different kind of contest is underway.\n\nChina is winning without fighting — through 'anticipatory compliance.' Allies self-censor and accommodate to avoid economic retaliation. Three protagonists face choices about whether to push back, accommodate, or find a third way.",
   backgroundImage: '/assets/beijing_ministry_office.webp',
   decisions: [
     {
@@ -265,6 +269,7 @@ const chapter2: Chapter = {
       characterId: 'li_jian',
       characterName: 'Li Jian',
       decisionTitle: 'Digital Silk Road AI Deployment',
+      date: '10 March 2029',
       context:
         "The Central Committee has issued a directive: accelerate deployment of AI surveillance infrastructure to Southeast Asian partner nations as part of the Digital Silk Road initiative. The systems include facial recognition, social media monitoring, and predictive policing tools. A deputy warns privately that Western sanctions are likely if deployment proceeds on the announced timeline. Your daughter called again last night from Cambridge. She didn't ask about work.",
       question: 'What do you recommend to the Central Committee?',
@@ -320,56 +325,57 @@ const chapter2: Chapter = {
       chapter: 2,
       characterId: 'anna_karlsson',
       characterName: 'Anna Karlsson',
-      decisionTitle: 'Chinese 5G Infrastructure Exclusion',
+      decisionTitle: 'Chinese Port Infrastructure Restrictions',
+      date: '15 March 2029',
       context:
-        "Sweden's government is debating whether to exclude Chinese telecommunications equipment from its national 5G infrastructure. The military case is clear: Chinese-manufactured equipment creates surveillance vulnerabilities in sensitive communications networks. But politicians are warning about economic retaliation — $4B in bilateral trade, supply chains for Swedish manufacturers, and Beijing's demonstrated willingness to punish perceived slights. As Sweden's newly joined NATO, your position carries weight in Brussels.",
-      question: 'What position should Sweden advocate in NATO consultation?',
+        "Ports are critical infrastructure, and they are no longer just steel and concrete. Ship-to-shore cranes, straddle carriers, terminal operating systems, and the remote-maintenance links vendors use to service their equipment all carry software, telemetry, and supply-chain dependencies that reach back to the manufacturer. Baltic logistics hubs matter for both commercial trade and NATO crisis mobility — moving forces, fuel, and munitions in a crisis runs through these terminals.\n\nHaving already restricted Chinese suppliers from its 5G networks years ago, Stockholm is now debating how far to extend de-risking into the maritime domain. The tradeoff is familiar: security against replacement cost, operational disruption, and Beijing's demonstrated willingness to retaliate against trade and investment. As one of NATO's newer members, Sweden's position will shape how Brussels and the Baltic states handle their own ports.",
+      question: 'What position should Sweden advocate on Chinese suppliers in critical port infrastructure?',
       critical: false,
       heroImage: '/assets/stockholm_planning_office.webp',
       choices: [
         {
           id: 'A',
-          title: 'Full Exclusion',
+          title: 'Blanket Restriction',
           description:
-            'Advocate for complete exclusion of Chinese equipment from all critical infrastructure. National security overrides economic considerations. Set a clear precedent.',
-          financialContext: 'Replacement cost: ~$1.2B for Swedish 5G infrastructure. Chinese exports drop 18% ($720M). But avoided security breach costs could be $5B+.',
+            'Advocate a full ban on Chinese suppliers for new procurements across critical port infrastructure, and begin phased replacement of the most sensitive systems — terminal operating systems, remote-maintenance links, and cranes at dual-use ports. Security overrides cost.',
+          financialContext: 'Replacement and refit: $1.1–1.5B across Swedish ports over 5 years. Chinese exports drop an estimated 18% ($720M). Avoided security/disruption costs could be $5B+.',
           impactLabels: ['Alliance Trust +20', 'Security Improved'],
-          risk: 'Chinese economic retaliation, trade disruption',
+          risk: 'Higher procurement costs, rip-and-replace disruption at working terminals, and sharp diplomatic retaliation from Beijing',
           metrics: { allianceTrust: 20 },
           trajectory: { alliance_path: 6 },
           consequence: {
-            headline: 'The Security Override',
-            body: "Sweden becomes the first NATO member to implement full 5G exclusion with explicit national security justification. Beijing protests. Swedish exports to China drop 18% over the following quarter. But five other NATO members quietly begin their own exclusion reviews. Sometimes one country has to go first. Anna knew that. She didn't know it would feel this way.",
+            headline: 'The Maritime De-Risking',
+            body: "Sweden extends its de-risking policy from telecoms into port infrastructure, with an explicit national-security justification. Beijing protests and freezes two investment files. Swedish exports to China slip 18% over the following quarter. Two terminals sit partially idle during the rip-and-replace. But five allied capitals quietly begin their own port-equipment reviews. Anna knew one country had to go first. She didn't know it would feel this way.",
           },
         },
         {
           id: 'B',
-          title: 'Hybrid Approach',
+          title: 'Controlled Exposure',
           description:
-            'Allow Chinese equipment in civilian networks; mandate Western equipment in military and sensitive government networks. Preserve trade relationships while protecting the most critical systems.',
-          financialContext: 'Saves ~$200M vs full replacement. Preserves $4B bilateral trade. But network seam vulnerabilities create unquantifiable security risk.',
-          impactLabels: ['Alliance Trust −5', 'Economic Balance Maintained'],
-          risk: 'Security seams between civilian/military networks, vulnerable to exploitation',
-          metrics: { allianceTrust: -5 },
+            'Ban Chinese suppliers only from the most sensitive systems — terminal operating software, port management systems, and dual-use ports — while allowing temporary retention of existing equipment under strict controls: network segmentation, audited logging, no remote vendor access, and manual fallbacks for critical functions.',
+          financialContext: 'Saves ~$400M versus full replacement. Preserves most of the $4B bilateral trade. But controls-regime maintenance is an ongoing cost, and vendor compliance is hard to verify.',
+          impactLabels: ['Alliance Trust +5', 'Partial Risk Reduction'],
+          risk: 'Residual exposure through remote-access loopholes, control regime drift over time, seam vulnerabilities between carved-out and retained systems',
+          metrics: { allianceTrust: 5 },
           trajectory: { restraint_path: 4 },
           consequence: {
-            headline: 'Managing Both Sides',
-            body: "The hybrid approach satisfies the politicians. Trade relations hold. But NATO's technical staff quietly flags the 'seam problem' — the boundary between civilian and military networks is not as clean as the policy assumes. Anna files the assessment. She knows it will sit in an inbox. Sometimes the compromise everyone accepts is the one that fails slowly.",
+            headline: 'Controls In Place',
+            body: "The hybrid policy clears cabinet. The most sensitive software is carved out; the rest stays under audit. NATO's technical staff file a quiet assessment on the residual exposure — remote maintenance still needs the vendor, and controls drift when the headlines fade. Trade relations hold. Anna knows the worst-case is slow, not loud. Sometimes the compromise everyone accepts is the one that fails quietly.",
           },
         },
         {
           id: 'C',
-          title: 'Nordic Coalition',
+          title: 'Monitoring Without Restriction',
           description:
-            'Coordinate with Norway, Finland, and Denmark to implement collective exclusion. Shared burden, shared risk, and a multilateral precedent that is harder for Beijing to punish.',
-          financialContext: 'Per-country cost reduced to ~$800M through joint procurement. Combined Nordic GDP of $2.1T makes Chinese retaliation against four nations simultaneously unaffordable for Beijing.',
-          impactLabels: ['Alliance Trust +20', 'Strategic Coherence +20'],
-          risk: 'Coordination delays, not all Nordic partners may agree',
-          metrics: { allianceTrust: 20, strategicCoherence: 20 },
-          trajectory: { alliance_path: 8 },
+            'Keep procurement open to Chinese suppliers but impose mandatory security reviews, physical and network inspections, comprehensive logging, and crisis-mobility contingency planning. Lowest-disruption path; strongest case for continuity of trade.',
+          financialContext: 'Minimal immediate cost (~$60–90M for the inspection regime). Preserves the full trade relationship. But exposure remains largely intact and allied patience thins.',
+          impactLabels: ['Alliance Trust −10', 'Trade Continuity'],
+          risk: 'NATO partners view Sweden as soft on maritime supply-chain risk; surveillance and disruption exposure remain largely intact',
+          metrics: { allianceTrust: -10 },
+          trajectory: { restraint_path: 4 },
           consequence: {
-            headline: 'The Nordic Framework',
-            body: "Norway and Finland agree immediately. Denmark takes three weeks. But the Nordic 5G Framework becomes the template. Within six months, the Baltic states adopt a similar approach. Beijing cannot punish four countries simultaneously without consequences it's not prepared to accept. Anna watches the map change on the Stockholm planning screen and thinks: this is how it actually works.",
+            headline: 'The Oversight Regime',
+            body: "Sweden's ports stay open to Chinese suppliers under a new oversight regime. Trade continuity is preserved. But the assessment memo from NATO's industrial resilience cell lands on Anna's desk a week later: inspections catch known risks, they don't catch unknown ones. Two Baltic neighbors quietly ask whether Stockholm really believes its own policy. Anna files the memo. She is not sure how many times she can do that.",
           },
         },
       ],
@@ -380,6 +386,7 @@ const chapter2: Chapter = {
       characterId: 'sarah_chen',
       characterName: 'Sarah Chen',
       decisionTitle: 'Allied Self-Censorship Response',
+      date: '22 March 2029',
       context:
         "Intelligence has confirmed what you suspected: three major European allies are actively self-censoring on Xinjiang, Hong Kong, and Taiwan in bilateral communications with Beijing — not because China asked them to, but because they're anticipating economic retaliation. 'Anticipatory compliance' is hollowing out the Western position without Beijing having to do anything. The President has asked for your recommendation on how to respond.",
       question: 'How should the President respond to allied self-censorship?',
@@ -452,8 +459,9 @@ const chapter3: Chapter = {
       characterId: 'sarah_chen',
       characterName: 'Sarah Chen',
       decisionTitle: 'Crisis Action — Military Transit',
+      date: '14 May 2029',
       context:
-        "FLASH TRAFFIC: Chinese water cannons have damaged a Philippine Coast Guard vessel at Second Thomas Shoal. Three Filipino sailors are injured. The Philippine President has invoked the Mutual Defense Treaty and is requesting immediate US military assistance. The Crisis Action Group convenes in 20 minutes. This is the test everyone knew was coming.",
+        "FLASH TRAFFIC: Chinese water cannons have damaged a Philippine Coast Guard vessel at Second Thomas Shoal. Three Filipino sailors are injured. Manila has invoked the US–Philippines Mutual Defense Treaty, citing attacks on a Philippine public vessel and armed forces personnel, and has requested urgent consultations and coordinated allied support — asking the United States to act with it to meet the common dangers, in accordance with its constitutional processes. The Crisis Action Group convenes in 20 minutes. This is the test everyone knew was coming.",
       question: 'What action do you recommend to the President?',
       critical: true,
       heroImage: '/assets/emergency_briefing_room_backplate.webp',
@@ -508,6 +516,7 @@ const chapter3: Chapter = {
       characterId: 'james_nakamura',
       characterName: 'James Nakamura',
       decisionTitle: 'Emergency Defense Production',
+      date: '14 May 2029',
       context:
         "Japan's Defense Ministry has made an emergency request: accelerate delivery of Kōdo Robotics' autonomous maritime surveillance drones for Japan Coast Guard deployment within 72 hours. The catch: fulfilling this request requires breaking three existing commercial contracts with South Korean and Taiwanese clients — triggering penalty clauses and potential litigation. His father's voice is in his head: 'A Japanese company keeps its word.' But Japan may need those drones.",
       question: 'Do you prioritize national defense over commercial commitments?',
@@ -566,8 +575,9 @@ const chapter3: Chapter = {
       characterId: 'li_jian',
       characterName: 'Li Jian',
       decisionTitle: 'Surveillance Deployment Choice — Defining Moment',
+      date: '14 May 2029',
       context:
-        "DEFINING MOMENT: The Party has issued a classified directive ordering Li Jian to personally authorize the deployment of AI surveillance infrastructure targeting Filipino officials and activists during the crisis. The directive frames it as 'intelligence support operations.' Li Jian knows the systems will be used to identify and track pro-Western voices in the Philippines. His daughter called this morning from Cambridge — she didn't ask questions. But he heard something in her voice he recognized: she knows something is wrong.",
+        "DEFINING MOMENT: The Party has issued an internal directive ordering Li Jian to personally authorize the deployment of AI surveillance infrastructure targeting Filipino officials and activists during the crisis. The directive frames it as 'intelligence support operations.' Li Jian knows the systems will be used to identify and track pro-Western voices in the Philippines. His daughter called this morning from Cambridge — she didn't ask questions. But he heard something in her voice he recognized: she knows something is wrong.",
       question: 'Do you comply, sabotage, or resign?',
       critical: true,
       heroImage: '/assets/beijing_ministry_office.webp',
@@ -583,7 +593,7 @@ const chapter3: Chapter = {
           trajectory: { escalation_path: 12 },
           consequence: {
             headline: 'The Directive Executes',
-            body: "The deployment proceeds. Fourteen Filipino activists are identified within the week. Li Jian files his report. The Central Committee notes his compliance. That night, his daughter calls and doesn't say anything for a long moment before asking about his health. He knows she knows. He answers her question about his health. He does not answer the question she didn't ask.",
+            body: "The deployment proceeds. Fourteen Filipino activists are identified within the week. Li Jian files his report. The Central Committee notes his compliance. That night, his daughter calls from Cambridge and doesn't say anything for a long moment before asking about his health. He knows she knows. He answers her question about his health. He does not answer the question she didn't ask.",
           },
         },
         {
@@ -596,8 +606,8 @@ const chapter3: Chapter = {
           metrics: {},
           trajectory: { alliance_path: 6, escalation_path: -8 },
           consequence: {
-            headline: 'System Failure — Classified',
-            body: "The deployment fails due to 'incompatible encryption protocols' in the field infrastructure. Li Jian's technical team files a three-page report explaining the failure in impenetrable detail. The hardliners are frustrated but accept the explanation. His daughter calls on Thursday. They talk for an hour about her research. For the first time in months, he sleeps without the television on.",
+            headline: 'System Failure — Internal Report',
+            body: "The deployment fails due to 'incompatible encryption protocols' in the field infrastructure. Li Jian's technical team files a three-page report explaining the failure in impenetrable detail. The hardliners are frustrated but accept the explanation. His daughter calls from Cambridge on Thursday. They talk for an hour about her research. For the first time in months, he sleeps without the television on.",
           },
         },
         {
@@ -622,8 +632,9 @@ const chapter3: Chapter = {
       characterId: 'anna_karlsson',
       characterName: 'Anna Karlsson',
       decisionTitle: 'NATO Article 4 Consultation',
+      date: '15 May 2029',
       context:
-        "Three NATO members have invoked Article 4 — requesting consultation over the South China Sea crisis. The question before the alliance is fundamental: is the Indo-Pacific NATO's concern? As Sweden's military representative and the newest NATO member state, Anna's position carries symbolic weight. She can invoke collective solidarity and broaden NATO's scope — or argue for regional focus and preserve NATO's traditional theater. Either choice sets a precedent.",
+        "Three NATO members have invoked Article 4 — formally requesting consultation because they believe their security is threatened. Article 4 is not Article 5: it triggers coordinated consultations, intelligence-sharing, and defensive signaling, not automatic collective defense. The question before the alliance is fundamental: is the Indo-Pacific NATO's concern? As Sweden's military representative and one of NATO's newer member states, Anna's position carries symbolic weight. She can invoke collective solidarity and broaden NATO's scope — or argue for regional focus and preserve NATO's traditional theater. Either choice sets a precedent.",
       question: 'What position should Sweden advocate?',
       critical: false,
       heroImage: '/assets/stockholm_planning_office.webp',
@@ -678,8 +689,9 @@ const chapter3: Chapter = {
       characterId: 'maya_patel',
       characterName: 'Dr. Maya Patel',
       decisionTitle: 'Pentagon AI Deployment',
+      date: '15 May 2029',
       context:
-        "Pentagon emergency request: deploy Sentinel-7, Sentinel AI's most advanced model, to provide real-time threat detection on USS John McCain during South China Sea operations. The ask is real and urgent — Sentinel-7 would provide genuine tactical advantage. But if the vessel is compromised, damaged, or the AI systems captured, Chinese reverse engineering is not a hypothetical. Maya could save lives today and give away tomorrow's advantage. Or protect tomorrow and accept today's risk.",
+        "Pentagon emergency request: deploy Sentinel-7 — Sentinel AI's most advanced model — onto USS John McCain for real-time threat detection during South China Sea escort operations. Sentinel-7 normally runs only in the US government and national-security tier, never on a forward-deployed platform in active contact. Pentagon wants it there because the PLA is probing at the edge of the detection envelope: saturation drone swarms, decoys, and kinetic-optical spoofing that older systems struggle to disaggregate in time to act.\n\nIf the vessel is compromised, damaged, or the AI payload captured, Chinese reverse engineering is not a hypothetical — every choice Maya has made about how Sentinel-7 reasons could end up in Tianhe's next training run. How she answers here will shape what role corporate AI plays in frontline operations, and whether allies conclude that American AI is an asset they can rely on or a liability that gets captured with the ship.",
       question: 'Do you deploy your most advanced AI to active operations?',
       critical: true,
       heroImage: '/assets/sf_hq_interior.webp',
@@ -749,6 +761,7 @@ const chapter56: Chapter = {
       characterId: 'li_jian',
       characterName: 'Li Jian',
       decisionTitle: 'Whistleblower Choice',
+      date: '28 August 2029',
       context:
         "A Guardian journalist has contacted Li Jian through an encrypted channel. They know about AI surveillance deployments targeting dissidents in three countries. They know about the targeting lists. They are going to publish — the only question is whether Li Jian will go on record, confirm off-record and guide to additional sources, or decline entirely. His daughter's research fellowship at Cambridge is conditional on her good standing. She doesn't know he's making this decision.",
       question: 'Do you confirm allegations to the journalist?',
@@ -794,7 +807,7 @@ const chapter56: Chapter = {
           trajectory: { restraint_path: 3 },
           consequence: {
             headline: 'Silence',
-            body: "Li Jian declines. The story publishes two weeks later — thinner, less documented, easier to dismiss. Beijing issues a statement calling it 'fabricated propaganda.' His daughter calls on a Sunday morning. They talk about her research. She doesn't mention the story. He doesn't mention his decision. There are things that pass between parents and children without words. He is not certain what she knows. He is certain she is safe.",
+            body: "Li Jian declines. The story publishes two weeks later — thinner, less documented, easier to dismiss. Beijing issues a statement calling it 'fabricated propaganda.' His daughter calls from Cambridge on a Sunday morning. They talk about her research. She doesn't mention the story. He doesn't mention his decision. There are things that pass between parents and children without words. He is not certain what she knows. He is certain she is safe.",
           },
         },
       ],
@@ -805,6 +818,7 @@ const chapter56: Chapter = {
       characterId: 'maya_patel',
       characterName: 'Dr. Maya Patel',
       decisionTitle: 'Chinese Investor Pressure',
+      date: '12 September 2029',
       context:
         "The Chinese sovereign wealth fund that holds an 8% stake in Sentinel AI is demanding a board seat. Refuse, and they've made clear they will dump their position — triggering a stock crash — and fund a competing AI firm with Chinese government backing. Accept, and Sentinel AI gains stability at the cost of independence and the trust of every ally who relies on the company's AI systems remaining free of Chinese influence. The board has punted the decision to Maya.",
       question: 'Do you give Chinese investors board representation?',
@@ -864,6 +878,7 @@ const chapter56: Chapter = {
       characterId: 'all_five',
       characterName: 'All Five Protagonists',
       decisionTitle: 'Munich Security Conference — The Dinner',
+      date: '14 February 2030',
       context:
         "All five protagonists are in Munich for the annual Security Conference. For the first time, all five — Sarah, Maya, James, Li Jian (attending as an 'independent observer' after his resignation), and Anna — are in the same room. A private dinner has been arranged, off the record, no aides, no translators. The opportunity is unprecedented. So is the risk. What happens in this room will not be in the communiqué — but it may be the most consequential conversation of the decade.",
       question: 'How do you approach this unprecedented dinner?',
@@ -920,6 +935,7 @@ const chapter56: Chapter = {
       characterId: 'all_five',
       characterName: 'All Five Protagonists',
       decisionTitle: 'Chinese AI Breakthrough — The Wildcard',
+      date: '15 February 2030',
       context:
         "BREAKING — Munich, Day 2: China's state media announces 'Tianhe-3,' described as a near-AGI system with capabilities exceeding any existing Western AI. Intelligence assessments are divided: 40% probability it's real, 60% probability it's strategic exaggeration designed to trigger a panicked overreaction. The conference ends in 14 hours. The five protagonists must decide how to respond before they leave Munich — because what happens in this room will frame the Western narrative for months.",
       question: "How do you respond to China's claimed breakthrough?",
@@ -1003,6 +1019,12 @@ export const DECISION_1_1_FULL_CONSEQUENCES = {
         value:
           "Japan and Australia immediately pledge coordinated response. Philippine President publicly thanks US for 'unwavering commitment.' Other regional allies take note.",
         positive: true,
+      },
+      {
+        label: 'Escalation Risk +6',
+        value:
+          'US and PLA forces now operate in close proximity. A near-miss close-pass incident between a US destroyer and a PLAN frigate is de-conflicted at the last minute. Deterrence holds — but on the professionalism of crews in the moment.',
+        positive: false,
       },
       {
         label: 'Fiscal Health −15',

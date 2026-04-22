@@ -33,10 +33,10 @@ export default function OpeningPage() {
           transition={{ duration: dur(0.7), delay: del(0.3) }}
         >
           <div className="font-mono text-[10px] tracking-[0.35em] uppercase" style={{ color: 'rgba(59,130,246,0.65)' }}>
-            JANUARY 15, 2029 — 0600 UTC
+            15 January 2029 — 0600 UTC
           </div>
           <div className="font-mono text-[8px] tracking-widest" style={{ color: 'rgba(148,163,184,0.3)' }}>
-            TS // NOFORN // CLASSIFICATION: ACTIVE
+            SCENARIO · ACTIVE
           </div>
         </motion.div>
 

@@ -18,6 +18,40 @@ const ENDING_ICONS: Record<string, string> = {
   D: '🥋',
 };
 
+// ── Sweden (2.2) port paragraph variants for Trundling Along (B) ──
+const SWEDEN_PARAGRAPHS: Record<string, string> = {
+  A: "Anna Karlsson's blanket restriction on non-allied port infrastructure held the perimeter but squeezed Sweden's transit economy. Gothenburg throughput fell 18%. Rotterdam and Antwerp — less cautious — absorbed the rerouted volume. \"We were safe,\" Anna says. \"We were also smaller. The politicians who wanted the savings now want the traffic back.\"",
+  B: "Anna Karlsson's hybrid approach to port infrastructure failed to hold the line. A remote-maintenance session on a terminal operating system pivoted laterally through a shared identity provider into naval logistics databases. Forty-seven connection points, the auditors counted. \"We thought we could have both efficiency and control,\" Anna says. \"We were wrong about the seams.\"",
+  C: "Anna Karlsson's monitoring-only posture generated more telemetry than Sweden had analysts to read. An anomalous firmware push on ship-to-shore cranes was flagged eleven months after deployment. \"We saw everything,\" Anna says. \"We understood almost none of it in time.\"",
+};
+
+// ── Sentinel (1.2) paragraph variants for Trundling Along (B) ──
+const SENTINEL_PARAGRAPHS: Record<string, string> = {
+  A: "Maya Patel's Sentinel-7 runs inside Five Eyes national security systems — and almost nowhere else that matters. The licensing revenue is stable. But every allied country that wasn't Five Eyes built a parallel AI stack rather than depend on a system they couldn't audit. \"We're the standard for five governments,\" Maya tells the board. \"The other hundred and ninety are using something else.\"",
+  B: "Maya Patel's Sentinel AI is profitable. Revenue: $4.2B. But allied sales are down 60%. The UK, Japan, EU, and Israel have all built independent, incompatible AI ecosystems. \"We own 100% of a fragmenting market,\" Maya tells the board. The stock is fine. The strategy is bankrupt.",
+  C: "Maya Patel's consortium became a committee. Governance rules that took four governments to approve took sixteen to maintain. Product velocity collapsed while Chinese alternatives shipped weekly. \"We optimized for legitimacy,\" Maya tells the board. \"We optimized away our speed.\"",
+};
+
+const ORIGINAL_SWEDEN_PARA = "Anna Karlsson's hybrid 5G approach failed. Chinese malware detected in the civilian network migrated to military systems through 47 connection points. 'We saved 200 million krona,' the politicians said. 'It cost us...' Anna pauses. 'We'll never know what it cost us.'";
+const ORIGINAL_SENTINEL_PARA = "Maya Patel's Sentinel AI is profitable. Revenue: $4.2B. But allied sales are down 60%. The UK, Japan, EU, and Israel have all built independent, incompatible AI ecosystems. 'We own 100% of a fragmenting market,' Maya tells the board. The stock is fine. The strategy is bankrupt.";
+
+function buildEndingBody(endingId: string, originalBody: string, decisions: Record<string, string>): string {
+  if (endingId !== 'B') return originalBody;
+  let body = originalBody;
+
+  const swedenChoice = decisions['2.2'];
+  if (swedenChoice && SWEDEN_PARAGRAPHS[swedenChoice]) {
+    body = body.replace(ORIGINAL_SWEDEN_PARA, SWEDEN_PARAGRAPHS[swedenChoice]);
+  }
+
+  const sentinelChoice = decisions['1.2'];
+  if (sentinelChoice && SENTINEL_PARAGRAPHS[sentinelChoice] && sentinelChoice !== 'B') {
+    body = body.replace(ORIGINAL_SENTINEL_PARA, SENTINEL_PARAGRAPHS[sentinelChoice]);
+  }
+
+  return body;
+}
+
 export default function EndingPage() {
   const navigate = useGameStore((s) => s.navigate);
   const computeEnding = useGameStore((s) => s.computeEnding);
@@ -40,7 +74,8 @@ export default function EndingPage() {
   if (!ending) return null;
 
   const decisionsCount = Object.keys(decisions).length;
-  const paragraphs = ending.body.split('\n\n').filter(Boolean);
+  const body = buildEndingBody(endingId, ending.body, decisions);
+  const paragraphs = body.split('\n\n').filter(Boolean);
 
   const handleReplay = () => {
     resetGame();
@@ -51,7 +86,7 @@ export default function EndingPage() {
   const allEndings = endings;
 
   return (
-    <div className="relative w-full min-h-screen overflow-hidden bg-[#080c14]">
+    <div className="relative w-full h-full overflow-y-auto bg-[#080c14]">
       {/* Hero image */}
       <div className="relative w-full" style={{ height: 'min(65vh, 520px)' }}>
         <img
@@ -143,23 +178,30 @@ export default function EndingPage() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { label: 'Alliance Path', value: trajectory.alliance_path, color: '#3B82F6' },
-              { label: 'Tech Path', value: trajectory.tech_path, color: '#F59E0B' },
-              { label: 'Escalation Path', value: trajectory.escalation_path, color: '#DC2626' },
-              { label: 'Restraint Path', value: trajectory.restraint_path, color: '#94A3B8' },
-            ].map((t) => (
-              <div key={t.label} className="glass-panel rounded-sm p-3 text-center">
-                <div className="font-mono text-[7px] tracking-wide uppercase mb-1" style={{ color: 'rgba(148,163,184,0.4)' }}>
-                  {t.label}
+              { label: 'Alliance Path', value: trajectory.alliance_path, color: '#3B82F6', inverted: false },
+              { label: 'Tech Path', value: trajectory.tech_path, color: '#F59E0B', inverted: false },
+              { label: 'Escalation Path', value: trajectory.escalation_path, color: '#DC2626', inverted: true },
+              { label: 'Restraint Path', value: trajectory.restraint_path, color: '#94A3B8', inverted: false },
+            ].map((t) => {
+              // For escalation: positive = redder (danger), negative = green (de-escalation).
+              // For others: positive = own color, negative = red (lost ground).
+              const displayColor = t.inverted
+                ? (t.value > 0 ? '#DC2626' : t.value < 0 ? '#10B981' : 'rgba(148,163,184,0.7)')
+                : (t.value >= 0 ? t.color : 'rgba(248,113,113,0.8)');
+              return (
+                <div key={t.label} className="glass-panel rounded-sm p-3 text-center">
+                  <div className="font-mono text-[7px] tracking-wide uppercase mb-1" style={{ color: 'rgba(148,163,184,0.4)' }}>
+                    {t.label}
+                  </div>
+                  <div
+                    className="font-mono text-xl font-bold"
+                    style={{ color: displayColor }}
+                  >
+                    {t.value >= 0 ? '+' : ''}{t.value}
+                  </div>
                 </div>
-                <div
-                  className="font-mono text-xl font-bold"
-                  style={{ color: t.value >= 0 ? t.color : 'rgba(248,113,113,0.8)' }}
-                >
-                  {t.value >= 0 ? '+' : ''}{t.value}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
 
