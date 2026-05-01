@@ -85,6 +85,7 @@ const DECISION_ID_MAP: Record<string, string> = {
   li_jian: 'lijian',
   anna_karlsson: 'anna',
   all_five: 'all_five',
+  allied_four: 'allied_four',
 };
 
 export const getCharacterByDecisionId = (decisionCharId: string): Character | undefined => {

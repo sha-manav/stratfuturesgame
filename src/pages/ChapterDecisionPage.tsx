@@ -12,6 +12,7 @@ const CHARACTER_COLORS: Record<string, string> = {
   li_jian: '#DC2626',
   anna_karlsson: '#94A3B8',
   all_five: '#8B5CF6',
+  allied_four: '#5B8DEF',
 };
 
 const CHARACTER_LABELS: Record<string, string> = {
@@ -21,6 +22,7 @@ const CHARACTER_LABELS: Record<string, string> = {
   li_jian: 'Li Jian',
   anna_karlsson: 'Anna Karlsson',
   all_five: 'All Five Protagonists',
+  allied_four: 'US & Allied Decision-Makers',
 };
 
 function MetricBadge({ label }: { label: string }) {
@@ -411,11 +413,15 @@ function DecisionPanel({
               <div className="font-ui text-base font-bold" style={{ color }}>
                 {decision.characterId === 'all_five'
                   ? 'ALL FIVE PROTAGONISTS\u2019 DECISION'
+                  : decision.characterId === 'allied_four'
+                  ? 'US & ALLIED DECISION'
                   : `${CHARACTER_LABELS[decision.characterId]?.toUpperCase() ?? decision.characterName.toUpperCase()}\u2019S DECISION`}
               </div>
               <div className="font-mono text-[11px] tracking-wide" style={{ color: 'rgba(148,163,184,0.6)' }}>
                 {decision.characterId === 'all_five'
                   ? 'A collective choice by all five decision-makers'
+                  : decision.characterId === 'allied_four'
+                  ? 'A collective choice by US and allied decision-makers'
                   : (() => {
                       const char = getCharacterByDecisionId(decision.characterId);
                       return char ? `${char.role} · ${char.location}` : decision.characterName;
@@ -479,6 +485,8 @@ function DecisionPanel({
               style={{ color: 'rgba(148,163,184,0.4)' }}>
               {decision.characterId === 'all_five'
                 ? 'CHOOSE THE COLLECTIVE APPROACH'
+                : decision.characterId === 'allied_four'
+                ? 'CHOOSE THE ALLIED RESPONSE'
                 : `ADVISE ${(CHARACTER_LABELS[decision.characterId] ?? decision.characterName).toUpperCase()}`}
             </div>
 

@@ -25,7 +25,10 @@
       "Bash(pandoc \"Asynchronous Competition Architecture \\(1\\).docx\" -t plain -o /tmp/sfdocs/async.txt)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
       "Bash(curl -s http://localhost:5002/)",
-      "Bash(pkill -f \"vite\")"
+      "Bash(pkill -f \"vite\")",
+      "Bash(git fetch *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)"
     ]
   }
 }

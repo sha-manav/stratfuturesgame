@@ -752,7 +752,7 @@ const chapter56: Chapter = {
   name: 'The Long Game & Winter of Choices',
   subtitle: 'August 2029 — February 2030',
   description:
-    'Months have passed since the Manila Incident. The consequences of your crisis decisions have cascaded through capitals, boardrooms, and families. Now personal costs become real. Li Jian faces a whistleblower choice. Maya faces Chinese investor pressure. All five protagonists converge at the Munich Security Conference. A Chinese AI breakthrough forces a final strategic decision.',
+    'Months have passed since the Manila Incident. The consequences of your crisis decisions have cascaded through capitals, boardrooms, and families. Now personal costs become real. Li Jian faces a whistleblower choice. Maya faces Chinese investor pressure. All five protagonists converge for an off-the-record dinner at the Munich Security Conference. Days later, a Chinese AI breakthrough forces the US and its allies to make a final strategic decision.',
   backgroundImage: '/assets/diplomatic_fallout_backplate.webp',
   decisions: [
     {
@@ -932,12 +932,12 @@ const chapter56: Chapter = {
     {
       id: '6.2',
       chapter: 6,
-      characterId: 'all_five',
-      characterName: 'All Five Protagonists',
+      characterId: 'allied_four',
+      characterName: 'US & Allied Decision-Makers',
       decisionTitle: 'Chinese AI Breakthrough — The Wildcard',
       date: '15 February 2030',
       context:
-        "BREAKING — Munich, Day 2: China's state media announces 'Tianhe-3,' described as a near-AGI system with capabilities exceeding any existing Western AI. Intelligence assessments are divided: 40% probability it's real, 60% probability it's strategic exaggeration designed to trigger a panicked overreaction. The conference ends in 14 hours. The five protagonists must decide how to respond before they leave Munich — because what happens in this room will frame the Western narrative for months.",
+        "BREAKING: China's state media announces 'Tianhe-3,' described as a near-AGI system with capabilities exceeding any existing Western AI. Intelligence assessments are divided: 40% probability it's real, 60% probability it's strategic exaggeration designed to trigger a panicked overreaction. The decision falls to the US and its allies — Sarah Chen at the NSC, Maya Patel at Sentinel AI, James Nakamura at Kōdo Robotics, and Colonel Anna Karlsson on behalf of the Nordic NATO bloc. The framing the alliance chooses now will define the Western narrative for months.",
       question: "How do you respond to China's claimed breakthrough?",
       critical: true,
       heroImage: '/assets/montage_all_five_characters.webp',
@@ -954,7 +954,7 @@ const chapter56: Chapter = {
           trajectory: { alliance_path: 9, tech_path: 9, escalation_path: 3 },
           consequence: {
             headline: 'The Crash Program',
-            body: "The Munich AI Initiative announcement comes at 11 PM on the last night of the conference. Six allied governments commit. Sentinel AI is named as the lead architecture firm. Kōdo Robotics joins the hardware consortium. Anna's assessment shapes the security framework. The $20B is not all real money — some is redirected, some is aspirational. But the political signal is unambiguous: the alliance is choosing to compete. Whether Tianhe-3 is real almost doesn't matter anymore.",
+            body: "The Allied AI Initiative is announced 36 hours after Tianhe-3 hits the wires. Six allied governments commit. Sentinel AI is named as the lead architecture firm. Kōdo Robotics joins the hardware consortium. Anna's assessment shapes the security framework. The $20B is not all real money — some is redirected, some is aspirational. But the political signal is unambiguous: the alliance is choosing to compete. Whether Tianhe-3 is real almost doesn't matter anymore.",
           },
         },
         {
@@ -969,7 +969,7 @@ const chapter56: Chapter = {
           trajectory: { tech_path: -3, restraint_path: 6 },
           consequence: {
             headline: 'Wait and Verify',
-            body: "The Munich communiqué calls for 'a technical assessment committee' to evaluate China's claimed capabilities. Beijing calls it 'a demonstration of Western hesitation.' Intelligence takes three months to assess. The conclusion: Tianhe-3 is real, but overstated — perhaps 60% of the claimed capability. The window for a credible response has not closed. But it has narrowed.",
+            body: "The joint allied statement calls for 'a technical assessment committee' to evaluate China's claimed capabilities. Beijing calls it 'a demonstration of Western hesitation.' Intelligence takes three months to assess. The conclusion: Tianhe-3 is real, but overstated — perhaps 60% of the claimed capability. The window for a credible response has not closed. But it has narrowed.",
           },
         },
         {
@@ -983,7 +983,7 @@ const chapter56: Chapter = {
           trajectory: { alliance_path: 6, tech_path: 3 },
           consequence: {
             headline: 'The Democratic AI Frame',
-            body: "The Munich statement frames the competition not as raw capability but as trustworthiness: 'AI systems that democratic governments can audit and citizens can trust.' It's a genuine distinction — and it lands. Three countries that had been considering Tianhe-3 integration in civilian infrastructure quietly pause their evaluations. The frame doesn't solve everything. But it redefines what 'winning' in AI competition means, in ways that may matter more than any single benchmark.",
+            body: "The allied statement frames the competition not as raw capability but as trustworthiness: 'AI systems that democratic governments can audit and citizens can trust.' It's a genuine distinction — and it lands. Three countries that had been considering Tianhe-3 integration in civilian infrastructure quietly pause their evaluations. The frame doesn't solve everything. But it redefines what 'winning' in AI competition means, in ways that may matter more than any single benchmark.",
           },
         },
       ],
