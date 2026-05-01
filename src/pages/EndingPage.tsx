@@ -105,7 +105,7 @@ export default function EndingPage() {
             transition={{ duration: shouldReduce ? 0 : 0.7 }}
           >
             <div className="text-4xl mb-4">{icon}</div>
-            <div className="font-mono text-[8px] tracking-[0.5em] uppercase mb-3" style={{ color: `${color}90` }}>
+            <div className="font-mono text-[10px] tracking-[0.5em] uppercase mb-3" style={{ color: `${color}90` }}>
               Spring 2031 · Ending {endingId}
             </div>
             <h1
@@ -120,7 +120,7 @@ export default function EndingPage() {
             >
               {ending.title}
             </h1>
-            <p className="font-mono text-[9px] tracking-[0.3em] uppercase text-shadow" style={{ color: 'rgba(203,213,225,0.7)' }}>
+            <p className="font-mono text-[11px] tracking-[0.3em] uppercase text-shadow" style={{ color: 'rgba(203,213,225,0.7)' }}>
               {ending.subtitle}
             </p>
           </motion.div>
@@ -141,7 +141,7 @@ export default function EndingPage() {
               key={i}
               className="font-serif leading-[1.95] mb-5 text-shadow"
               style={{
-                fontSize: 'clamp(0.9rem,1.6vw,1.05rem)',
+                fontSize: 'clamp(1rem,1.7vw,1.18rem)',
                 color: i === 0 ? '#e2e8f0' : '#94a3b8',
               }}
             >
@@ -158,10 +158,10 @@ export default function EndingPage() {
           className="glass-panel rounded-sm p-5 mb-8"
           style={{ borderLeft: `2px solid ${color}55` }}
         >
-          <div className="font-mono text-[8px] tracking-[0.35em] uppercase mb-2" style={{ color: `${color}80` }}>
+          <div className="font-mono text-[10px] tracking-[0.35em] uppercase mb-2" style={{ color: `${color}80` }}>
             {endingId === 'B' ? 'Result Of' : 'Achieved Through'}
           </div>
-          <p className="font-ui text-sm leading-relaxed" style={{ color: '#94a3b8' }}>
+          <p className="font-ui text-base leading-relaxed" style={{ color: '#94a3b8' }}>
             {ending.achievedThrough}
           </p>
         </motion.div>
@@ -173,7 +173,7 @@ export default function EndingPage() {
           transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.5 }}
           className="mb-8"
         >
-          <div className="font-mono text-[8px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
+          <div className="font-mono text-[10px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
             Your Strategic Trajectory
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -190,7 +190,7 @@ export default function EndingPage() {
                 : (t.value >= 0 ? t.color : 'rgba(248,113,113,0.8)');
               return (
                 <div key={t.label} className="glass-panel rounded-sm p-3 text-center">
-                  <div className="font-mono text-[7px] tracking-wide uppercase mb-1" style={{ color: 'rgba(148,163,184,0.4)' }}>
+                  <div className="font-mono text-[9px] tracking-wide uppercase mb-1" style={{ color: 'rgba(148,163,184,0.4)' }}>
                     {t.label}
                   </div>
                   <div
@@ -212,7 +212,7 @@ export default function EndingPage() {
           transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.55 }}
           className="mb-8"
         >
-          <div className="font-mono text-[8px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
+          <div className="font-mono text-[10px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
             Final State — {decisionsCount} of {TOTAL_DECISIONS} Decisions Made
           </div>
           <div className="space-y-3">
@@ -224,10 +224,10 @@ export default function EndingPage() {
             ].map((m) => (
               <div key={m.label}>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="font-mono text-[9px] tracking-wide" style={{ color: 'rgba(148,163,184,0.6)' }}>
+                  <span className="font-mono text-[11px] tracking-wide" style={{ color: 'rgba(148,163,184,0.6)' }}>
                     {m.label}
                   </span>
-                  <span className="font-mono text-[10px] font-bold" style={{ color: m.color }}>
+                  <span className="font-mono text-[12px] font-bold" style={{ color: m.color }}>
                     {m.value}
                   </span>
                 </div>
@@ -252,7 +252,7 @@ export default function EndingPage() {
           transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.65 }}
           className="mb-10"
         >
-          <div className="font-mono text-[8px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
+          <div className="font-mono text-[10px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
             Four Possible Endings
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -270,11 +270,11 @@ export default function EndingPage() {
                   }}
                 >
                   <div className="text-lg mb-1">{ENDING_ICONS[e.id]}</div>
-                  <div className="font-mono text-[7px] tracking-wide uppercase" style={{ color: isThis ? eColor : 'rgba(148,163,184,0.35)' }}>
+                  <div className="font-mono text-[9px] tracking-wide uppercase" style={{ color: isThis ? eColor : 'rgba(148,163,184,0.35)' }}>
                     {e.id === 'A' ? 'Cooperation' : e.id === 'B' ? 'Trundling' : e.id === 'C' ? 'Crucible' : 'Judo'}
                   </div>
                   {isThis && (
-                    <div className="font-mono text-[6px] tracking-widest uppercase mt-1" style={{ color: eColor }}>
+                    <div className="font-mono text-[8px] tracking-widest uppercase mt-1" style={{ color: eColor }}>
                       YOUR PATH
                     </div>
                   )}
@@ -291,7 +291,7 @@ export default function EndingPage() {
           transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : 0.7 }}
           className="mb-10"
         >
-          <div className="font-mono text-[8px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
+          <div className="font-mono text-[10px] tracking-[0.4em] uppercase mb-4" style={{ color: 'rgba(148,163,184,0.4)' }}>
             Decision Log
           </div>
           <div className="space-y-2">
@@ -305,20 +305,20 @@ export default function EndingPage() {
                     className="flex items-start gap-3 glass-panel rounded-sm px-4 py-3"
                     style={{ opacity: choice ? 1 : 0.35 }}
                   >
-                    <div className="font-mono text-[8px] tracking-wide flex-shrink-0 mt-0.5"
+                    <div className="font-mono text-[10px] tracking-wide flex-shrink-0 mt-0.5"
                       style={{ color: 'rgba(148,163,184,0.4)', minWidth: '32px' }}>
                       {decision.id}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-ui text-[11px] font-medium mb-0.5" style={{ color: '#94a3b8' }}>
+                      <div className="font-ui text-[13px] font-medium mb-0.5" style={{ color: '#94a3b8' }}>
                         {decision.decisionTitle}
                       </div>
                       {choice ? (
-                        <div className="font-mono text-[9px]" style={{ color: 'rgba(148,163,184,0.5)' }}>
+                        <div className="font-mono text-[11px]" style={{ color: 'rgba(148,163,184,0.5)' }}>
                           Option {choiceId}: {choice.title}
                         </div>
                       ) : (
-                        <div className="font-mono text-[9px]" style={{ color: 'rgba(148,163,184,0.25)' }}>
+                        <div className="font-mono text-[11px]" style={{ color: 'rgba(148,163,184,0.25)' }}>
                           Not reached
                         </div>
                       )}
@@ -339,7 +339,7 @@ export default function EndingPage() {
         >
           <button
             onClick={handleReplay}
-            className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-sm transition-all"
+            className="font-ui font-semibold text-sm tracking-[0.2em] uppercase px-6 py-3 rounded-sm transition-all"
             style={{
               background: 'rgba(59,130,246,0.12)',
               border: '1px solid rgba(59,130,246,0.4)',
@@ -349,8 +349,8 @@ export default function EndingPage() {
             Replay from Start →
           </button>
           <button
-            onClick={() => navigate(4)}
-            className="font-ui text-xs tracking-[0.2em] uppercase px-6 py-3 rounded-sm transition-all"
+            onClick={() => navigate(5)}
+            className="font-ui text-sm tracking-[0.2em] uppercase px-6 py-3 rounded-sm transition-all"
             style={{
               background: 'rgba(148,163,184,0.06)',
               border: '1px solid rgba(148,163,184,0.15)',

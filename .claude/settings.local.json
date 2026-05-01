@@ -14,7 +14,18 @@
       "Bash(git remote:*)",
       "Bash(git push:*)",
       "Bash(cat '/Users/manavshah/Desktop/StratFutures/StratFuturesGameDocs/decision_tree_v2_fixed_endings \\(1\\).html')",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(command -v python3)",
+      "Bash(mkdir -p /tmp/sfdocs)",
+      "Bash(pandoc \"CHAPTER 1 \\(1\\).docx\" -t plain -o /tmp/sfdocs/chapter1.txt)",
+      "Bash(pandoc \"Design Document for Prototype Production \\(1\\).docx\" -t plain -o /tmp/sfdocs/design.txt)",
+      "Read(//tmp/**)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(npx vite *)",
+      "Bash(pandoc \"Asynchronous Competition Architecture \\(1\\).docx\" -t plain -o /tmp/sfdocs/async.txt)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
+      "Bash(curl -s http://localhost:5002/)",
+      "Bash(pkill -f \"vite\")"
     ]
   }
 }

@@ -35,14 +35,14 @@ export default function MetricHUD() {
             backdropFilter: 'blur(8px)',
           }}
         >
-          <span className="font-mono text-[7px] tracking-[0.2em] uppercase" style={{ color: 'rgba(148,163,184,0.5)' }}>
+          <span className="font-mono text-[9px] tracking-[0.2em] uppercase" style={{ color: 'rgba(148,163,184,0.5)' }}>
             Scores {collapsed ? '▼' : '▲'}
           </span>
           {/* Mini inline metrics when collapsed */}
           {collapsed && (
             <span className="flex items-center gap-1 ml-1">
               {METRICS.map((m) => (
-                <span key={m.key} className="font-mono text-[8px] font-bold tabular-nums" style={{ color: m.color }}>
+                <span key={m.key} className="font-mono text-[10px] font-bold tabular-nums" style={{ color: m.color }}>
                   {metrics[m.key]}
                 </span>
               ))}
@@ -71,7 +71,7 @@ export default function MetricHUD() {
               >
                 {/* Header */}
                 <div
-                  className="font-mono text-[7px] tracking-[0.35em] uppercase mb-3 pb-2 text-center"
+                  className="font-mono text-[9px] tracking-[0.35em] uppercase mb-3 pb-2 text-center"
                   style={{ color: 'rgba(148,163,184,0.45)', borderBottom: '1px solid rgba(148,163,184,0.08)' }}
                 >
                   Strategic Index
@@ -85,10 +85,10 @@ export default function MetricHUD() {
                     return (
                       <div key={m.key}>
                         <div className="flex items-center justify-between mb-1">
-                          <span className="font-mono text-[8px] tracking-wide" style={{ color: 'rgba(148,163,184,0.55)' }}>
+                          <span className="font-mono text-[10px] tracking-wide" style={{ color: 'rgba(148,163,184,0.55)' }}>
                             {m.label}
                           </span>
-                          <span className="font-mono text-[9px] font-bold tabular-nums" style={{ color: m.color }}>
+                          <span className="font-mono text-[11px] font-bold tabular-nums" style={{ color: m.color }}>
                             {value}
                           </span>
                         </div>
@@ -108,7 +108,7 @@ export default function MetricHUD() {
 
                 {/* Trajectory hint */}
                 <div
-                  className="font-mono text-[6px] tracking-[0.2em] uppercase mt-3 pt-2 text-center"
+                  className="font-mono text-[8px] tracking-[0.2em] uppercase mt-3 pt-2 text-center"
                   style={{ color: 'rgba(148,163,184,0.28)', borderTop: '1px solid rgba(148,163,184,0.06)' }}
                 >
                   Live · Updates with decisions

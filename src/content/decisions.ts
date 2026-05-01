@@ -258,9 +258,9 @@ const chapter1: Chapter = {
 const chapter2: Chapter = {
   number: 2,
   name: 'Anticipatory Compliance',
-  subtitle: '10 March 2029',
+  subtitle: 'March 2029',
   description:
-    "Status — 10 March 2029: Chinese Coast Guard vessels have pulled back from blocking position at Second Thomas Shoal after the January confrontation, but the standoff is not resolved — both sides are holding and talks have stalled. Manila has not escalated; Beijing has not backed down. In the quiet space between crises, a different kind of contest is underway.\n\nChina is winning without fighting — through 'anticipatory compliance.' Allies self-censor and accommodate to avoid economic retaliation. Three protagonists face choices about whether to push back, accommodate, or find a third way.",
+    "Status — March 2029: Chinese Coast Guard vessels have pulled back from blocking position at Second Thomas Shoal after the January confrontation, but the standoff is not resolved — both sides are holding and talks have stalled. Manila has not escalated; Beijing has not backed down. In the quiet space between crises, a different kind of contest is underway.\n\nChina is winning without fighting — through 'anticipatory compliance.' Allies self-censor and accommodate to avoid economic retaliation. Three protagonists face choices about whether to push back, accommodate, or find a third way.",
   backgroundImage: '/assets/beijing_ministry_office.webp',
   decisions: [
     {
@@ -448,7 +448,7 @@ const chapter2: Chapter = {
 const chapter3: Chapter = {
   number: 3,
   name: 'The Manila Incident',
-  subtitle: 'May 2029 — CRITICAL BRANCHING POINT',
+  subtitle: 'May 2029',
   description:
     'First genuine crisis. Chinese water cannons damage a Philippine Coast Guard vessel. All five protagonists must decide simultaneously. Their choices determine whether alliance coordination succeeds or fractures.',
   backgroundImage: '/assets/maritime_escalation_backplate.webp',

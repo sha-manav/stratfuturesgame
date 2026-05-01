@@ -38,10 +38,10 @@ export default function LandingPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: dur(0.7), delay: dur(0.8) }}
       >
-        <div className="font-mono text-[10px] tracking-[0.3em] uppercase" style={{ color: 'rgba(59,130,246,0.7)' }}>
+        <div className="font-mono text-[12px] tracking-[0.3em] uppercase" style={{ color: 'rgba(59,130,246,0.7)' }}>
           15 January 2029 — 0600 UTC
         </div>
-        <div className="font-mono text-[9px] tracking-widest" style={{ color: 'rgba(148,163,184,0.4)' }}>
+        <div className="font-mono text-[11px] tracking-widest" style={{ color: 'rgba(148,163,184,0.4)' }}>
           SCENARIO · ACTIVE
         </div>
       </motion.div>
@@ -55,7 +55,7 @@ export default function LandingPage() {
           transition={{ duration: dur(0.8), delay: dur(0.9) }}
         >
           <span
-            className="font-mono text-[11px] tracking-[0.5em] uppercase"
+            className="font-mono text-[13px] tracking-[0.5em] uppercase"
             style={{ color: 'rgba(59,130,246,0.7)' }}
           >
             A Geopolitical Strategy Scenario
@@ -90,7 +90,7 @@ export default function LandingPage() {
 
         <motion.p
           className="text-shadow max-w-xl mx-auto text-slate-300 leading-relaxed mb-10"
-          style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', fontFamily: 'Georgia, serif' }}
+          style={{ fontSize: 'clamp(1.05rem, 2.1vw, 1.22rem)', fontFamily: 'Georgia, serif' }}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: dur(0.8), delay: dur(1.6) }}
@@ -101,7 +101,7 @@ export default function LandingPage() {
 
         <motion.button
           onClick={() => navigate(1)}
-          className="relative group px-10 py-3.5 rounded-sm font-ui font-semibold text-sm tracking-widest uppercase overflow-hidden"
+          className="relative group px-10 py-3.5 rounded-sm font-ui font-semibold text-base tracking-widest uppercase overflow-hidden"
           style={{
             background: 'rgba(59,130,246,0.15)',
             border: '1px solid rgba(59,130,246,0.5)',
@@ -125,7 +125,7 @@ export default function LandingPage() {
         </motion.button>
 
         <motion.p
-          className="font-mono text-[9px] tracking-widest mt-6"
+          className="font-mono text-[11px] tracking-widest mt-6"
           style={{ color: 'rgba(148,163,184,0.35)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

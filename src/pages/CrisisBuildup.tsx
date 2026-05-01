@@ -2,9 +2,113 @@ import { useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { useGameStore } from '../store/gameStore';
 
-type CrisisStep = 'intel' | 'sarah-office' | 'global-montage' | 'clock' | 'decision-approach';
+type CrisisStep =
+  | 'chapter-banner'
+  | 'intel'
+  | 'sarah-office'
+  | 'clock'
+  | 'global-montage'
+  | 'decision-approach';
 
-const STEPS: CrisisStep[] = ['intel', 'sarah-office', 'global-montage', 'clock', 'decision-approach'];
+const STEPS: CrisisStep[] = [
+  'chapter-banner',
+  'intel',
+  'sarah-office',
+  'clock',
+  'global-montage',
+  'decision-approach',
+];
+
+// ─── CHAPTER 1 BANNER ───
+function ChapterBanner({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) {
+  const shouldReduce = useReducedMotion();
+  return (
+    <div className="relative w-full h-full overflow-hidden bg-[#080c14]">
+      <img
+        src="/assets/page_nine_south_china_sea_crisis.webp"
+        alt="South China Sea backdrop"
+        className="absolute inset-0 w-full h-full object-cover opacity-30"
+        loading="eager"
+      />
+      <div className="absolute inset-0" style={{ background: 'rgba(8,12,20,0.78)' }} />
+      <div className="absolute inset-0 scan-lines" />
+
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px]"
+        style={{ background: 'linear-gradient(90deg, rgba(59,130,246,0.7), transparent)' }}
+      />
+
+      <div className="absolute inset-0 overflow-y-auto flex items-center justify-center px-6 md:px-10">
+        <motion.div
+          className="w-full max-w-xl text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: shouldReduce ? 0 : 0.7 }}
+        >
+          <div
+            className="font-mono text-[11px] tracking-[0.5em] uppercase mb-4"
+            style={{ color: 'rgba(59,130,246,0.7)' }}
+          >
+            Chapter 1
+          </div>
+          <h2
+            className="text-shadow-xl mb-2 leading-tight"
+            style={{
+              fontFamily: 'Georgia, serif',
+              fontSize: 'clamp(1.9rem, 4vw, 3rem)',
+              fontWeight: 700,
+              color: '#f1f5f9',
+              letterSpacing: '0.02em',
+            }}
+          >
+            The Long Drift
+          </h2>
+          <div
+            className="font-mono text-[12px] tracking-[0.35em] uppercase mb-6"
+            style={{ color: 'rgba(148,163,184,0.55)' }}
+          >
+            January 2029
+          </div>
+          <p
+            className="leading-relaxed mb-8"
+            style={{
+              fontFamily: 'Georgia, serif',
+              fontSize: 'clamp(1.05rem, 1.85vw, 1.18rem)',
+              color: '#cbd5e1',
+            }}
+          >
+            Three years into "managed decline." A crisis in the South China Sea forces the first
+            real test of allied cohesion. Three protagonists face defining choices about commitment,
+            risk, and strategic priorities.
+          </p>
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={onPrev}
+              className="font-ui text-sm tracking-widest px-4 py-2 rounded-sm"
+              style={{
+                color: 'rgba(148,163,184,0.5)',
+                border: '1px solid rgba(148,163,184,0.15)',
+              }}
+            >
+              ← Back
+            </button>
+            <button
+              onClick={onNext}
+              className="font-ui font-semibold text-sm tracking-[0.25em] uppercase px-6 py-3 rounded-sm"
+              style={{
+                background: 'rgba(59,130,246,0.14)',
+                border: '1px solid rgba(59,130,246,0.45)',
+                color: '#93c5fd',
+              }}
+            >
+              Begin Chapter →
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
 
 // ─── INTEL ASSESSMENT PAGE ───
 function IntelAssessment({ onNext, onPrev }: { onNext: () => void; onPrev: () => void }) {
@@ -38,12 +142,12 @@ function IntelAssessment({ onNext, onPrev }: { onNext: () => void; onPrev: () =>
           >
             <h3
               className="font-mono font-bold text-center mb-2"
-              style={{ color: '#e2e8f0', fontSize: '0.95rem', letterSpacing: '0.05em' }}
+              style={{ color: '#e2e8f0', fontSize: '1.08rem', letterSpacing: '0.05em' }}
             >
               Intelligence Assessment: South China Sea Escalation
             </h3>
             <div
-              className="font-mono text-[8px] text-center"
+              className="font-mono text-[10px] text-center"
               style={{ color: 'rgba(148,163,184,0.5)', letterSpacing: '0.2em' }}
             >
               15 JANUARY 2029 · 0530 EST
@@ -82,14 +186,14 @@ function IntelAssessment({ onNext, onPrev }: { onNext: () => void; onPrev: () =>
           <div className="mt-4 flex justify-between">
             <button
               onClick={onPrev}
-              className="font-ui text-xs tracking-widest px-4 py-2 rounded-sm"
+              className="font-ui text-sm tracking-widest px-4 py-2 rounded-sm"
               style={{ color: 'rgba(148,163,184,0.5)', border: '1px solid rgba(148,163,184,0.15)' }}
             >
               ← Back
             </button>
             <button
               onClick={onNext}
-              className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-6 py-2.5 rounded-sm"
+              className="font-ui font-semibold text-sm tracking-[0.2em] uppercase px-6 py-2.5 rounded-sm"
               style={{
                 background: 'rgba(59,130,246,0.12)',
                 border: '1px solid rgba(59,130,246,0.4)',
@@ -117,13 +221,13 @@ function IntelSection({
   return (
     <div>
       <div
-        className="font-mono text-[9px] tracking-[0.3em] uppercase mb-1.5 font-bold"
+        className="font-mono text-[11px] tracking-[0.3em] uppercase mb-1.5 font-bold"
         style={{ color: accent }}
       >
         {label}:
       </div>
       <p
-        className="font-mono text-[11px] leading-relaxed"
+        className="font-mono text-[13px] leading-relaxed"
         style={{ color: 'rgba(203,213,225,0.85)' }}
       >
         {text}
@@ -181,7 +285,7 @@ function SarahOffice({ onNext, onPrev }: { onNext: () => void; onPrev: () => voi
         >
           {/* Character badge */}
           <div
-            className="font-mono text-[9px] tracking-[0.4em] uppercase mb-3 inline-block px-2 py-0.5 rounded-sm"
+            className="font-mono text-[11px] tracking-[0.4em] uppercase mb-3 inline-block px-2 py-0.5 rounded-sm"
             style={{ color: '#3B82F6', background: '#3B82F614', border: '1px solid #3B82F630' }}
           >
             Washington DC — 05:30 EST
@@ -196,7 +300,7 @@ function SarahOffice({ onNext, onPrev }: { onNext: () => void; onPrev: () => voi
               className="leading-relaxed"
               style={{
                 fontFamily: 'Georgia, serif',
-                fontSize: 'clamp(0.88rem, 1.7vw, 1rem)',
+                fontSize: 'clamp(1rem, 1.85vw, 1.12rem)',
                 color: '#cbd5e1',
                 fontStyle: 'italic',
               }}
@@ -218,7 +322,7 @@ function SarahOffice({ onNext, onPrev }: { onNext: () => void; onPrev: () => voi
                 transition={{ duration: shouldReduce ? 0 : 0.5, delay: shouldReduce ? 0 : i * 0.15 }}
               >
                 <div
-                  className="font-mono text-[8px] tracking-widest mt-1 flex-shrink-0"
+                  className="font-mono text-[10px] tracking-widest mt-1 flex-shrink-0"
                   style={{ color: 'rgba(59,130,246,0.6)' }}
                 >
                   {msg.time}
@@ -231,12 +335,12 @@ function SarahOffice({ onNext, onPrev }: { onNext: () => void; onPrev: () => voi
                   }}
                 >
                   <div
-                    className="font-mono text-[8px] tracking-widest mb-1 font-bold"
+                    className="font-mono text-[10px] tracking-widest mb-1 font-bold"
                     style={{ color: 'rgba(59,130,246,0.7)' }}
                   >
                     {msg.sender}
                   </div>
-                  <p className="font-ui text-xs leading-relaxed" style={{ color: '#94a3b8' }}>
+                  <p className="font-ui text-sm leading-relaxed" style={{ color: '#94a3b8' }}>
                     {msg.text}
                   </p>
                 </div>
@@ -253,7 +357,7 @@ function SarahOffice({ onNext, onPrev }: { onNext: () => void; onPrev: () => voi
               className="leading-relaxed"
               style={{
                 fontFamily: 'Georgia, serif',
-                fontSize: 'clamp(0.85rem, 1.6vw, 0.95rem)',
+                fontSize: 'clamp(1.05rem, 1.85vw, 1.18rem)',
                 color: '#94a3b8',
                 fontStyle: 'italic',
               }}
@@ -267,21 +371,21 @@ function SarahOffice({ onNext, onPrev }: { onNext: () => void; onPrev: () => voi
           <div className="flex gap-3">
             <button
               onClick={onPrev}
-              className="font-ui text-xs tracking-widest px-4 py-2 rounded-sm"
+              className="font-ui text-sm tracking-widest px-4 py-2 rounded-sm"
               style={{ color: 'rgba(148,163,184,0.5)', border: '1px solid rgba(148,163,184,0.15)' }}
             >
               ← Back
             </button>
             <button
               onClick={onNext}
-              className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
+              className="font-ui font-semibold text-sm tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
               style={{
                 background: 'rgba(59,130,246,0.12)',
                 border: '1px solid rgba(59,130,246,0.4)',
                 color: '#93c5fd',
               }}
             >
-              Global Situation →
+              The Clock is Ticking →
             </button>
           </div>
         </motion.div>
@@ -350,7 +454,7 @@ function GlobalMontage({ onNext, onPrev }: { onNext: () => void; onPrev: () => v
             className="text-center text-shadow mb-6 max-w-2xl mx-auto"
             style={{
               fontFamily: 'Georgia, serif',
-              fontSize: 'clamp(0.88rem, 1.8vw, 1.05rem)',
+              fontSize: 'clamp(1rem, 1.95vw, 1.18rem)',
               color: '#94a3b8',
               fontStyle: 'italic',
             }}
@@ -385,12 +489,12 @@ function GlobalMontage({ onNext, onPrev }: { onNext: () => void; onPrev: () => v
                 />
                 <div className="absolute bottom-0 left-0 right-0 p-2.5">
                   <div
-                    className="font-mono text-[8px] tracking-[0.3em] uppercase mb-1 font-bold"
+                    className="font-mono text-[10px] tracking-[0.3em] uppercase mb-1 font-bold"
                     style={{ color: 'rgba(59,130,246,0.8)' }}
                   >
                     {panel.city}
                   </div>
-                  <p className="font-ui text-[10px] leading-snug" style={{ color: '#94a3b8' }}>
+                  <p className="font-ui text-[12px] leading-snug" style={{ color: '#94a3b8' }}>
                     {panel.text}
                   </p>
                 </div>
@@ -406,7 +510,7 @@ function GlobalMontage({ onNext, onPrev }: { onNext: () => void; onPrev: () => v
               border: '1px solid rgba(59,130,246,0.15)',
             }}
           >
-            <div className="animate-ticker whitespace-nowrap font-mono text-[9px] tracking-widest" style={{ color: 'rgba(59,130,246,0.7)' }}>
+            <div className="animate-ticker whitespace-nowrap font-mono text-[11px] tracking-widest" style={{ color: 'rgba(59,130,246,0.7)' }}>
               BREAKING: CMSA VESSELS MAINTAIN POSITION AT SECOND THOMAS SHOAL &nbsp;&nbsp;|&nbsp;&nbsp; MANILA INVOKES MUTUAL DEFENSE TREATY &nbsp;&nbsp;|&nbsp;&nbsp; GOLD UP 3.2% &nbsp;&nbsp;|&nbsp;&nbsp; DEFENSE STOCKS SURGE &nbsp;&nbsp;|&nbsp;&nbsp; NATO ARTICLE 4 CONSULTATIONS (NOT ARTICLE 5) REQUESTED &nbsp;&nbsp;|&nbsp;&nbsp; TOKYO MARKETS DOWN 4.1% &nbsp;&nbsp;|&nbsp;&nbsp; BEIJING: "CHINA EXERCISING SOVEREIGN RIGHTS" &nbsp;&nbsp;|&nbsp;&nbsp; BREAKING: CMSA VESSELS MAINTAIN POSITION AT SECOND THOMAS SHOAL &nbsp;&nbsp;|&nbsp;&nbsp; MANILA INVOKES MUTUAL DEFENSE TREATY &nbsp;&nbsp;|&nbsp;&nbsp; GOLD UP 3.2% &nbsp;&nbsp;|&nbsp;&nbsp; DEFENSE STOCKS SURGE &nbsp;&nbsp;
             </div>
           </div>
@@ -414,21 +518,21 @@ function GlobalMontage({ onNext, onPrev }: { onNext: () => void; onPrev: () => v
           <div className="flex justify-between">
             <button
               onClick={onPrev}
-              className="font-ui text-xs tracking-widest px-4 py-2 rounded-sm"
+              className="font-ui text-sm tracking-widest px-4 py-2 rounded-sm"
               style={{ color: 'rgba(148,163,184,0.5)', border: '1px solid rgba(148,163,184,0.15)' }}
             >
               ← Back
             </button>
             <button
               onClick={onNext}
-              className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
+              className="font-ui font-semibold text-sm tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
               style={{
                 background: 'rgba(59,130,246,0.12)',
                 border: '1px solid rgba(59,130,246,0.4)',
                 color: '#93c5fd',
               }}
             >
-              The Clock is Ticking →
+              Decision Approaches →
             </button>
           </div>
         </motion.div>
@@ -507,13 +611,13 @@ function ClockTicking({ onNext, onPrev }: { onNext: () => void; onPrev: () => vo
                 color: '#ef4444',
                 background: 'rgba(239,68,68,0.08)',
                 border: '1px solid rgba(239,68,68,0.4)',
-                fontSize: '0.8rem',
+                fontSize: '1.08rem',
               }}
             >
               THE CLOCK IS TICKING
             </div>
             <div
-              className="font-mono text-[9px] tracking-[0.4em]"
+              className="font-mono text-[11px] tracking-[0.4em]"
               style={{ color: 'rgba(148,163,184,0.4)' }}
             >
               T-MINUS 72 HOURS — COORDINATED RESPONSE WINDOW CLOSING
@@ -554,13 +658,13 @@ function ClockTicking({ onNext, onPrev }: { onNext: () => void; onPrev: () => vo
                 />
                 <div className="absolute bottom-0 left-0 right-0 p-3">
                   <div
-                    className="font-ui text-[10px] font-semibold mb-1"
+                    className="font-ui text-[12px] font-semibold mb-1"
                     style={{ color: panel.color }}
                   >
                     {panel.name}
                   </div>
                   <p
-                    className="font-ui text-[10px] leading-snug"
+                    className="font-ui text-[12px] leading-snug"
                     style={{ color: '#94a3b8' }}
                   >
                     {panel.update}
@@ -573,21 +677,21 @@ function ClockTicking({ onNext, onPrev }: { onNext: () => void; onPrev: () => vo
           <div className="flex justify-between">
             <button
               onClick={onPrev}
-              className="font-ui text-xs tracking-widest px-4 py-2 rounded-sm"
+              className="font-ui text-sm tracking-widest px-4 py-2 rounded-sm"
               style={{ color: 'rgba(148,163,184,0.5)', border: '1px solid rgba(148,163,184,0.15)' }}
             >
               ← Back
             </button>
             <button
               onClick={onNext}
-              className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
+              className="font-ui font-semibold text-sm tracking-[0.2em] uppercase px-5 py-2 rounded-sm"
               style={{
                 background: 'rgba(239,68,68,0.12)',
                 border: '1px solid rgba(239,68,68,0.4)',
                 color: '#fca5a5',
               }}
             >
-              Decision Approaches →
+              Global Reactions →
             </button>
           </div>
         </motion.div>
@@ -645,7 +749,7 @@ function DecisionApproach({ onNext, onPrev }: { onNext: () => void; onPrev: () =
           >
             <div
               className="font-mono font-bold tracking-[0.3em] uppercase"
-              style={{ color: '#ef4444', fontSize: '0.85rem' }}
+              style={{ color: '#ef4444', fontSize: '0.98rem' }}
             >
               DECISION POINT | 1200 EST | 72 HOURS REMAINING
             </div>
@@ -661,7 +765,7 @@ function DecisionApproach({ onNext, onPrev }: { onNext: () => void; onPrev: () =
               }}
             >
               <div
-                className="font-mono text-[9px] tracking-[0.3em] uppercase mb-3 font-bold"
+                className="font-mono text-[11px] tracking-[0.3em] uppercase mb-3 font-bold"
                 style={{ color: 'rgba(239,68,68,0.7)' }}
               >
                 SITUATION
@@ -669,10 +773,10 @@ function DecisionApproach({ onNext, onPrev }: { onNext: () => void; onPrev: () =
               <ul className="space-y-2">
                 {situation.map((s, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="font-mono text-[10px] mt-0.5 flex-shrink-0" style={{ color: 'rgba(239,68,68,0.6)' }}>
+                    <span className="font-mono text-[12px] mt-0.5 flex-shrink-0" style={{ color: 'rgba(239,68,68,0.6)' }}>
                       {i + 1}.
                     </span>
-                    <span className="font-ui text-[11px] leading-snug" style={{ color: '#94a3b8' }}>
+                    <span className="font-ui text-[13px] leading-snug" style={{ color: '#94a3b8' }}>
                       {s}
                     </span>
                   </li>
@@ -689,7 +793,7 @@ function DecisionApproach({ onNext, onPrev }: { onNext: () => void; onPrev: () =
               }}
             >
               <div
-                className="font-mono text-[9px] tracking-[0.3em] uppercase mb-3 font-bold"
+                className="font-mono text-[11px] tracking-[0.3em] uppercase mb-3 font-bold"
                 style={{ color: 'rgba(59,130,246,0.7)' }}
               >
                 WHAT HAPPENS NEXT
@@ -697,10 +801,10 @@ function DecisionApproach({ onNext, onPrev }: { onNext: () => void; onPrev: () =
               <ul className="space-y-2">
                 {whatHappens.map((s, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="font-mono text-[10px] mt-0.5 flex-shrink-0" style={{ color: 'rgba(59,130,246,0.6)' }}>
+                    <span className="font-mono text-[12px] mt-0.5 flex-shrink-0" style={{ color: 'rgba(59,130,246,0.6)' }}>
                       {i + 1}.
                     </span>
-                    <span className="font-ui text-[11px] leading-snug" style={{ color: '#94a3b8' }}>
+                    <span className="font-ui text-[13px] leading-snug" style={{ color: '#94a3b8' }}>
                       {s}
                     </span>
                   </li>
@@ -722,7 +826,7 @@ function DecisionApproach({ onNext, onPrev }: { onNext: () => void; onPrev: () =
               className="leading-relaxed"
               style={{
                 fontFamily: 'Georgia, serif',
-                fontSize: 'clamp(0.88rem, 1.7vw, 1rem)',
+                fontSize: 'clamp(1rem, 1.85vw, 1.12rem)',
                 color: '#cbd5e1',
                 fontStyle: 'italic',
               }}
@@ -736,14 +840,14 @@ function DecisionApproach({ onNext, onPrev }: { onNext: () => void; onPrev: () =
           <div className="flex justify-between">
             <button
               onClick={onPrev}
-              className="font-ui text-xs tracking-widest px-4 py-2 rounded-sm"
+              className="font-ui text-sm tracking-widest px-4 py-2 rounded-sm"
               style={{ color: 'rgba(148,163,184,0.5)', border: '1px solid rgba(148,163,184,0.15)' }}
             >
               ← Back
             </button>
             <button
               onClick={onNext}
-              className="font-ui font-semibold text-xs tracking-[0.2em] uppercase px-6 py-2.5 rounded-sm"
+              className="font-ui font-semibold text-sm tracking-[0.2em] uppercase px-6 py-2.5 rounded-sm"
               style={{
                 background: 'rgba(59,130,246,0.15)',
                 border: '1px solid rgba(59,130,246,0.5)',
@@ -768,7 +872,7 @@ export default function CrisisBuildup() {
     if (stepIndex < STEPS.length - 1) {
       setStepIndex(stepIndex + 1);
     } else {
-      navigate(4);
+      navigate(5);
     }
   };
 
@@ -776,7 +880,7 @@ export default function CrisisBuildup() {
     if (stepIndex > 0) {
       setStepIndex(stepIndex - 1);
     } else {
-      navigate(2);
+      navigate(3);
     }
   };
 
@@ -793,10 +897,11 @@ export default function CrisisBuildup() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
         >
+          {currentStep === 'chapter-banner' && <ChapterBanner onNext={goNext} onPrev={goPrev} />}
           {currentStep === 'intel' && <IntelAssessment onNext={goNext} onPrev={goPrev} />}
           {currentStep === 'sarah-office' && <SarahOffice onNext={goNext} onPrev={goPrev} />}
-          {currentStep === 'global-montage' && <GlobalMontage onNext={goNext} onPrev={goPrev} />}
           {currentStep === 'clock' && <ClockTicking onNext={goNext} onPrev={goPrev} />}
+          {currentStep === 'global-montage' && <GlobalMontage onNext={goNext} onPrev={goPrev} />}
           {currentStep === 'decision-approach' && (
             <DecisionApproach onNext={goNext} onPrev={goPrev} />
           )}

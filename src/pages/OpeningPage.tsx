@@ -32,10 +32,10 @@ export default function OpeningPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: dur(0.7), delay: del(0.3) }}
         >
-          <div className="font-mono text-[10px] tracking-[0.35em] uppercase" style={{ color: 'rgba(59,130,246,0.65)' }}>
+          <div className="font-mono text-[12px] tracking-[0.35em] uppercase" style={{ color: 'rgba(59,130,246,0.65)' }}>
             15 January 2029 — 0600 UTC
           </div>
-          <div className="font-mono text-[8px] tracking-widest" style={{ color: 'rgba(148,163,184,0.3)' }}>
+          <div className="font-mono text-[10px] tracking-widest" style={{ color: 'rgba(148,163,184,0.3)' }}>
             SCENARIO · ACTIVE
           </div>
         </motion.div>
@@ -49,7 +49,7 @@ export default function OpeningPage() {
             transition={{ duration: dur(0.8), delay: del(0.5) }}
           >
             <span
-              className="font-mono text-[10px] tracking-[0.45em] uppercase block mb-1"
+              className="font-mono text-[12px] tracking-[0.45em] uppercase block mb-1"
               style={{ color: 'rgba(59,130,246,0.6)' }}
             >
               Chapter 1
@@ -67,7 +67,7 @@ export default function OpeningPage() {
               The Long Drift
             </h2>
             <div
-              className="mt-2 font-mono text-[11px] tracking-[0.3em] uppercase"
+              className="mt-2 font-mono text-[13px] tracking-[0.3em] uppercase"
               style={{ color: 'rgba(148,163,184,0.5)' }}
             >
               2029: CROSSROADS OF POWER
@@ -88,7 +88,7 @@ export default function OpeningPage() {
               className="text-shadow leading-relaxed"
               style={{
                 fontFamily: 'Georgia, serif',
-                fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
+                fontSize: 'clamp(1rem, 1.95vw, 1.18rem)',
                 color: '#cbd5e1',
                 fontStyle: 'italic',
               }}
@@ -109,7 +109,7 @@ export default function OpeningPage() {
               className="text-shadow leading-relaxed"
               style={{
                 fontFamily: 'Georgia, serif',
-                fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
+                fontSize: 'clamp(1rem, 1.95vw, 1.18rem)',
                 color: '#94a3b8',
                 fontStyle: 'italic',
               }}
@@ -129,7 +129,7 @@ export default function OpeningPage() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <button
                 onClick={() => navigate(2)}
-                className="font-ui font-semibold text-xs tracking-[0.25em] uppercase px-6 py-2.5 rounded-sm"
+                className="font-ui font-semibold text-sm tracking-[0.25em] uppercase px-6 py-2.5 rounded-sm"
                 style={{
                   background: 'rgba(59,130,246,0.12)',
                   border: '1px solid rgba(59,130,246,0.4)',
@@ -139,8 +139,8 @@ export default function OpeningPage() {
                 Meet the Players →
               </button>
               <button
-                onClick={() => navigate(3)}
-                className="font-ui text-xs tracking-[0.15em] uppercase px-5 py-2.5 rounded-sm"
+                onClick={() => navigate(4)}
+                className="font-ui text-sm tracking-[0.15em] uppercase px-5 py-2.5 rounded-sm"
                 style={{
                   background: 'rgba(148,163,184,0.06)',
                   border: '1px solid rgba(148,163,184,0.15)',
@@ -153,12 +153,12 @@ export default function OpeningPage() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => navigate(0)}
-                className="font-ui text-xs tracking-widest"
+                className="font-ui text-sm tracking-widest"
                 style={{ color: 'rgba(148,163,184,0.4)' }}
               >
                 ← Back
               </button>
-              <span className="font-mono text-[8px] tracking-wide" style={{ color: 'rgba(148,163,184,0.25)' }}>
+              <span className="font-mono text-[10px] tracking-wide" style={{ color: 'rgba(148,163,184,0.25)' }}>
                 Meet the Players introduces the five decision-makers
               </span>
             </div>

@@ -8,9 +8,9 @@ interface CharacterPipProps {
 }
 
 const sizeMap = {
-  xs: { dot: 'w-1.5 h-1.5', text: 'text-[9px]', gap: 'gap-1' },
-  sm: { dot: 'w-2 h-2', text: 'text-[10px]', gap: 'gap-1.5' },
-  md: { dot: 'w-2.5 h-2.5', text: 'text-xs', gap: 'gap-2' },
+  xs: { dot: 'w-1.5 h-1.5', text: 'text-[11px]', gap: 'gap-1' },
+  sm: { dot: 'w-2 h-2', text: 'text-[12px]', gap: 'gap-1.5' },
+  md: { dot: 'w-2.5 h-2.5', text: 'text-sm', gap: 'gap-2' },
 };
 
 export default function CharacterPip({
